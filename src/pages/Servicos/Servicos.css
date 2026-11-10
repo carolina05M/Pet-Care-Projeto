@@ -1,0 +1,348 @@
+.pagina-servicos {
+  min-height: 70vh;
+  background: #f6f0e8;
+  color: #514943;
+}
+
+/* Banner principal */
+.servicos-intro {
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 55px max(30px, calc((100% - 1150px) / 2));
+  text-align: left;
+  background: #4b2d27;
+  color: #fffaf6;
+  box-sizing: border-box;
+}
+
+.servicos-etiqueta {
+  color: #e9cdb7;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.servicos-intro h1 {
+  max-width: 650px;
+  margin: 15px 0 12px;
+  color: #fffaf6;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(38px, 5vw, 54px);
+  font-weight: 400;
+  line-height: 1.05;
+}
+
+.servicos-intro p {
+  max-width: 580px;
+  margin: 0;
+  color: #eadfd6;
+  line-height: 1.7;
+}
+
+/* Cartões de serviços */
+.servicos-lista {
+  max-width: 1150px;
+  margin: 0 auto;
+  padding: 60px 24px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  background: #f6f0e8;
+}
+
+.servico-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 25px;
+  border: 1px solid #e8ddd1;
+  border-radius: 12px;
+  background: #fffdf9;
+  box-shadow: 0 4px 14px #4b2d2710;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.servico-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 9px 22px #4b2d271a;
+}
+
+.servico-icone {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: #e9dccb;
+  color: #4b2d27;
+  font-size: 25px;
+}
+
+.servico-card h2 {
+  margin: 18px 0 8px;
+  color: #3f302b;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 21px;
+}
+
+.servico-descricao {
+  min-height: 76px;
+  color: #82766e;
+  line-height: 1.6;
+}
+
+.servico-duracao {
+  margin-top: 12px;
+  color: #82766e;
+  font-size: 13px;
+}
+
+.servico-preco {
+  margin: 15px 0;
+  color: #4b2d27;
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.botao-agendar {
+  width: 100%;
+  margin-top: auto;
+  padding: 13px 18px;
+  border: none;
+  border-radius: 999px;
+  background: #4b2d27;
+  color: #fffaf6;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.botao-agendar:hover {
+  background: #654137;
+  transform: translateY(-1px);
+}
+
+.botao-agendar:focus-visible,
+.botao-fechar:focus-visible {
+  outline: 3px solid #c6a995;
+  outline-offset: 3px;
+}
+
+/* Aviso ou chamada abaixo dos cartões */
+.servicos-aviso {
+  margin: 0;
+  padding: 35px 20px 45px;
+  background: #f6f0e8;
+  text-align: center;
+}
+
+.servicos-aviso h2 {
+  color: #3f302b;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 28px;
+  font-weight: 400;
+}
+
+.servicos-aviso p {
+  max-width: 650px;
+  margin: 0 auto;
+  color: #82766e;
+  line-height: 1.6;
+}
+
+/* Modal de agendamento */
+.modal-fundo {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  overflow-y: auto;
+  background: #1f1f1f99;
+}
+
+.modal-agendamento {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 30px;
+  border-radius: 18px;
+  background: #fffdf9;
+  box-shadow: 0 15px 50px #0003;
+}
+
+.modal-agendamento h2 {
+  margin: 0 30px 12px 0;
+  color: #3f302b;
+  font-size: 25px;
+}
+
+.modal-agendamento > p {
+  color: #82766e;
+  line-height: 1.6;
+}
+
+.botao-fechar {
+  position: absolute;
+  top: 15px;
+  right: 18px;
+  border: none;
+  background: transparent;
+  color: #654137;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.form-agendamento {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.form-agendamento label {
+  color: #514943;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.form-agendamento input,
+.form-agendamento select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ded2c5;
+  border-radius: 8px;
+  background: #fff;
+  color: #514943;
+  font: inherit;
+  box-sizing: border-box;
+}
+
+.form-agendamento input:focus,
+.form-agendamento select:focus {
+  outline: 2px solid #c6a995;
+  border-color: #a77f6d;
+}
+
+.form-agendamento .botao-agendar {
+  margin-top: 15px;
+}
+
+.mensagem-sucesso {
+  margin-top: 20px;
+  padding: 18px;
+  border: 1px solid #d7e4d6;
+  border-radius: 12px;
+  background: #f2f7ef;
+  color: #456044;
+  line-height: 1.6;
+}
+
+.mensagem-sucesso h3 {
+  margin-top: 0;
+}
+
+/* Seção opcional "Como funciona" */
+.servicos-como-funciona {
+  padding: 65px 24px 75px;
+  background: #fffdf9;
+  text-align: center;
+}
+
+.servicos-como-funciona h2 {
+  margin: 10px 0 45px;
+  color: #3f302b;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 32px;
+  font-weight: 400;
+}
+
+.servicos-etapas {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 22px;
+  max-width: 1150px;
+  margin: 0 auto;
+}
+
+.servicos-etapa {
+  position: relative;
+  padding: 0 10px;
+}
+
+.etapa-numero {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  margin: 0 auto 18px;
+  border-radius: 50%;
+  background: #4b2d27;
+  color: #fffaf6;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.servicos-etapa h3 {
+  margin: 0 0 8px;
+  color: #3f302b;
+  font-size: 17px;
+}
+
+.servicos-etapa p {
+  margin: 0;
+  color: #82766e;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+@media (max-width: 850px) {
+  .servicos-lista {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .servicos-etapas {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 35px;
+  }
+}
+
+@media (max-width: 550px) {
+  .servicos-intro {
+    min-height: 260px;
+    padding: 45px 22px;
+  }
+
+  .servicos-intro h1 {
+    font-size: 36px;
+  }
+
+  .servicos-lista {
+    grid-template-columns: 1fr;
+    padding: 35px 18px;
+  }
+
+  .servico-descricao {
+    min-height: auto;
+  }
+
+  .modal-agendamento {
+    padding: 25px 20px;
+  }
+
+  .servicos-como-funciona {
+    padding: 45px 18px;
+  }
+
+  .servicos-etapas {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+}

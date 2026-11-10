@@ -1,20 +1,62 @@
-import { Link } from 'react-router-dom'
-import styles from './Header.module.css'
+import { Link, NavLink } from "react-router-dom";
+import styles from "./Header.module.css";
 
 function Header() {
+  const links = [
+    { nome: "Home", caminho: "/" },
+    { nome: "Serviços", caminho: "/servicos" },
+    { nome: "Produtos", caminho: "/produtos" },
+    { nome: "Sobre", caminho: "/sobre" },
+    { nome: "Contato", caminho: "/contato" },
+  ];
+
   return (
     <header className={styles.header}>
-      <h1 className={styles.title}>PetCare</h1>
-    
-      <nav className={styles.nav}>
-        <Link to="/">Home</Link>
-        <Link to="/servicos">Serviços</Link>
-        <Link to="/produtos">Produtos</Link>
-        <Link to="/sobre">Sobre</Link>
-        <Link to="/contato">Contato</Link>
-        <Link to="/entrar">Entrar</Link>
-      </nav>
+      <div className={styles.container}>
+        {/* Logo */}
+        <Link to="/" className={styles.logo}>
+          <span className={styles.patinha}>🐾</span>
+          <span>PetCare</span>
+        </Link>
+
+        {/* Menu de navegação */}
+        <nav className={styles.nav}>
+          {links.map((link) => (
+            <NavLink
+              key={link.caminho}
+              to={link.caminho}
+              end={link.caminho === "/"}
+              className={({ isActive }) =>
+                isActive
+                  ? `${styles.navLink} ${styles.active}`
+                  : styles.navLink
+              }
+            >
+              {link.nome}
+            </NavLink>
+          ))}
+        </nav>
+
+        {/* Botões de acesso */}
+        <div className={styles.acoes}>
+          <Link to="/entrar" className={styles.entrar}>
+            Entrar
+          </Link>
+
+          <Link
+            to="/administrador"
+            className={styles.administrador}
+          >
+            Administrador
+          </Link>
+
+          <Link to="/entrar" className={styles.comecar}>
+            Começar grátis
+          </Link>
+        </div>
+      </div>
     </header>
-  )
+  );
 }
- export default Header
+
+export default Header;

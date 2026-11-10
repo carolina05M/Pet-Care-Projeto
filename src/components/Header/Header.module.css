@@ -1,28 +1,190 @@
 .header {
-  background-color: #f8e8c5;
-  color: #432e2e;
   width: 100%;
-  height: 80px;
+  height: 58px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #eee5dc;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.container {
+  width: 100%;
+  max-width: 1440px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 32px;
+  box-sizing: border-box;
+
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+}
+
+.logo {
   display: flex;
   align-items: center;
-  justify-content: space-around;
-}
+  gap: 6px;
 
-.header a{
-  height: 20px;
-  width: 100%;
-  color: #432e2e;
+  color: #4b2d27;
   text-decoration: none;
-  justify-content: center;
-  padding: 10px;
+  font-family: Georgia, serif;
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.patinha {
+  width: 27px;
+  height: 27px;
+  display: flex;
   align-items: center;
-  font-size: larger;
-  font-weight: bolder;
+  justify-content: center;
+
+  background-color: #f1e3d4;
+  border: 1px solid #dfc7b2;
+  border-radius: 50%;
+  font-size: 14px;
 }
 
-.header a:hover{
-  color: #f8e8c5;
-  background-color: #432e2e;
-  border-radius: 10px;
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
 }
 
+.navLink {
+  padding: 8px 12px;
+  border-radius: 20px;
+
+  color: #70564a;
+  text-decoration: none;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.active {
+  background-color: #ead9c5;
+  color: #4b2d27;
+}
+
+.navLink:hover {
+  background-color: #f5ede4;
+  color: #4b2d27;
+}
+
+.acoes {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.entrar {
+  color: #4b2d27;
+  text-decoration: none;
+  font-size: 12px;
+}
+
+.entrar:hover {
+  color: #b9855c;
+}
+
+/* Botão Administrador */
+.administrador {
+  color: #4b2d27;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 9px 13px;
+  border: 1px solid #dfc7b2;
+  border-radius: 25px;
+  transition: 0.2s;
+}
+
+.administrador:hover {
+  background-color: #f1e3d4;
+}
+
+.comecar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 9px 15px;
+  border-radius: 25px;
+
+  background-color: #4b2d27;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 11px;
+  font-weight: bold;
+
+  transition: background-color 0.2s;
+}
+
+.comecar:hover {
+  background-color: #70483b;
+}
+
+@media (max-width: 850px) {
+  .container {
+    grid-template-columns: 1fr auto;
+    padding: 12px 18px;
+    gap: 12px;
+  }
+
+  .header {
+    height: auto;
+  }
+
+  .nav {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    flex-wrap: wrap;
+  }
+
+  .navLink {
+    padding: 8px 10px;
+  }
+
+  .acoes {
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 420px) {
+  .container {
+    padding: 10px;
+  }
+
+  .logo {
+    font-size: 15px;
+  }
+
+  .acoes {
+    gap: 6px;
+  }
+
+  .administrador {
+    padding: 7px 8px;
+    font-size: 10px;
+  }
+
+  .comecar {
+    padding: 8px 10px;
+    font-size: 10px;
+  }
+
+  .nav {
+    gap: 2px;
+  }
+
+  .navLink {
+    padding: 7px;
+    font-size: 11px;
+  }
+}

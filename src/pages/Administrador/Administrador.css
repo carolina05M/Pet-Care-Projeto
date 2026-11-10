@@ -1,0 +1,262 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f6f0e8;
+  color: #4b2d27;
+}
+
+.administrador-layout {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* MENU LATERAL */
+.administrador-sidebar {
+  width: 250px;
+  min-width: 250px;
+  min-height: 100vh;
+  padding: 28px 18px;
+  background: #4b2d27;
+  color: #fffaf5;
+}
+
+.administrador-logo {
+  margin-bottom: 35px;
+}
+
+.administrador-logo span {
+  font-size: 30px;
+}
+
+.administrador-logo h2 {
+  margin: 8px 0 4px;
+  font-size: 23px;
+}
+
+.administrador-logo p {
+  margin: 0;
+  font-size: 13px;
+  color: #e8d5c5;
+}
+
+.administrador-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.administrador-menu a {
+  display: block;
+  padding: 12px;
+  color: #fffaf5;
+  text-decoration: none;
+  border-radius: 8px;
+  font-size: 15px;
+  transition: background 0.2s;
+}
+
+.administrador-menu a:hover {
+  background: #70483b;
+}
+
+/* CONTEÚDO PRINCIPAL */
+.administrador-conteudo {
+  flex: 1;
+  min-width: 0;
+  padding: 32px;
+}
+
+.administrador-cabecalho {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 35px;
+}
+
+.administrador-cabecalho h1 {
+  margin: 0;
+  font-size: 30px;
+}
+
+.administrador-cabecalho a {
+  color: #80513f;
+  text-decoration: none;
+}
+
+.administrador-cabecalho a:hover {
+  text-decoration: underline;
+}
+
+/* CARTÕES DE INDICADORES */
+.administrador-indicadores {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.administrador-card {
+  min-width: 0;
+  padding: 22px;
+  background: #fffdf9;
+  border: 1px solid #eaded2;
+  border-radius: 14px;
+  box-shadow: 0 3px 10px rgb(75 45 39 / 6%);
+}
+
+.administrador-card > span {
+  font-size: 25px;
+}
+
+.administrador-card p {
+  margin: 12px 0 8px;
+  color: #795d52;
+  font-size: 14px;
+}
+
+.administrador-card h2 {
+  margin: 0 0 8px;
+  font-size: 25px;
+  overflow-wrap: anywhere;
+}
+
+.administrador-card small {
+  color: #53805a;
+  font-weight: bold;
+}
+
+/* PAINÉIS */
+.administrador-painel {
+  margin-bottom: 25px;
+  padding: 25px;
+  background: #fffdf9;
+  border: 1px solid #eaded2;
+  border-radius: 14px;
+  box-shadow: 0 3px 10px rgb(75 45 39 / 5%);
+}
+
+.administrador-painel h2 {
+  margin: 0 0 25px;
+  font-size: 21px;
+}
+
+/* GRÁFICO */
+.administrador-grafico {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  gap: 18px;
+  min-height: 200px;
+  padding: 15px 5px 0;
+  border-bottom: 1px solid #e5d8cc;
+}
+
+.administrador-barra-item {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 7px;
+  min-width: 0;
+  height: 200px;
+}
+
+.administrador-barra-item span,
+.administrador-barra-item small {
+  font-size: 13px;
+}
+
+.administrador-barra {
+  width: min(100%, 42px);
+  min-height: 8px;
+  background: #bd855d;
+  border-radius: 7px 7px 0 0;
+}
+
+.administrador-barra-item small {
+  color: #795d52;
+}
+
+/* TABLETS */
+@media (max-width: 1100px) {
+  .administrador-indicadores {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .administrador-conteudo {
+    padding: 24px;
+  }
+}
+
+/* CELULARES */
+@media (max-width: 700px) {
+  .administrador-layout {
+    flex-direction: column;
+  }
+
+  .administrador-sidebar {
+    width: 100%;
+    min-width: 0;
+    min-height: auto;
+    padding: 20px;
+  }
+
+  .administrador-logo {
+    margin-bottom: 18px;
+  }
+
+  .administrador-menu {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6px;
+  }
+
+  .administrador-menu a {
+    padding: 10px;
+    font-size: 13px;
+  }
+
+  .administrador-conteudo {
+    padding: 18px;
+  }
+
+  .administrador-cabecalho {
+    align-items: flex-start;
+    flex-direction: column;
+    margin-bottom: 24px;
+  }
+
+  .administrador-cabecalho h1 {
+    font-size: 25px;
+  }
+
+  .administrador-indicadores {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .administrador-card {
+    padding: 18px;
+  }
+
+  .administrador-painel {
+    padding: 16px;
+    overflow-x: auto;
+  }
+
+  .administrador-grafico {
+    gap: 8px;
+    min-width: 300px;
+  }
+
+  .administrador-barra-item {
+    height: 180px;
+  }
+}

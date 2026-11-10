@@ -1,0 +1,259 @@
+.pagina-produtos {
+  min-height: 70vh;
+  background: #f6f0e8;
+  color: #514943;
+}
+
+/* Banner principal */
+.produtos-intro {
+  min-height: 270px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 50px max(24px, calc((100% - 1150px) / 2));
+  box-sizing: border-box;
+  background: #4b2d27;
+  color: #fffaf6;
+}
+
+.produtos-etiqueta {
+  color: #e9cdb7;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.produtos-intro h1 {
+  margin: 14px 0 10px;
+  color: #fffaf6;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(36px, 5vw, 52px);
+  font-weight: 400;
+}
+
+.produtos-intro p {
+  max-width: 600px;
+  margin: 0;
+  color: #eadfd6;
+  line-height: 1.7;
+}
+
+/* Conteúdo da loja */
+.produtos-conteudo {
+  max-width: 1150px;
+  margin: 0 auto;
+  padding: 55px 24px 70px;
+}
+
+.produtos-topo {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 28px;
+}
+
+.produtos-subtitulo {
+  color: #a77f6d;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.produtos-topo h2 {
+  margin: 8px 0 0;
+  color: #3f302b;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 30px;
+  font-weight: 400;
+}
+
+.produtos-carrinho {
+  padding: 12px 16px;
+  border: 1px solid #e8ddd1;
+  border-radius: 999px;
+  background: #fffdf9;
+  color: #4b2d27;
+  white-space: nowrap;
+}
+
+/* Busca e categorias */
+.produtos-controles {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-bottom: 28px;
+}
+
+.produtos-controles input {
+  width: 100%;
+  max-width: 420px;
+  padding: 13px 16px;
+  border: 1px solid #ded2c5;
+  border-radius: 999px;
+  background: #fffdf9;
+  color: #514943;
+  font: inherit;
+  box-sizing: border-box;
+}
+
+.produtos-controles input:focus {
+  outline: 2px solid #c6a995;
+  border-color: #a77f6d;
+}
+
+.produtos-categorias {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.categoria-botao {
+  padding: 10px 17px;
+  border: 1px solid #d9cabe;
+  border-radius: 999px;
+  background: #fffdf9;
+  color: #654137;
+  font: inherit;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.categoria-botao:hover,
+.categoria-ativa {
+  border-color: #4b2d27;
+  background: #4b2d27;
+  color: #fffaf6;
+}
+
+/* Cartões dos produtos */
+.produtos-lista {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.produto-card {
+  overflow: hidden;
+  border: 1px solid #e8ddd1;
+  border-radius: 14px;
+  background: #fffdf9;
+  box-shadow: 0 4px 14px #4b2d2710;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.produto-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 9px 22px #4b2d271a;
+}
+
+.produto-imagem {
+  display: grid;
+  place-items: center;
+  min-height: 180px;
+  background: #e9dccb;
+}
+
+.produto-imagem span {
+  font-size: 64px;
+}
+
+.produto-informacoes {
+  padding: 20px;
+}
+
+.produto-categoria {
+  color: #a77f6d;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+}
+
+.produto-informacoes h3 {
+  margin: 8px 0;
+  color: #3f302b;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 21px;
+}
+
+.produto-informacoes p {
+  min-height: 48px;
+  margin: 0;
+  color: #82766e;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.produto-rodape {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.produto-rodape strong {
+  color: #4b2d27;
+  font-size: 20px;
+}
+
+.produto-rodape button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 999px;
+  background: #4b2d27;
+  color: #fffaf6;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.produto-rodape button:hover {
+  background: #654137;
+}
+
+.produtos-vazio {
+  padding: 35px 20px;
+  border: 1px dashed #cbb9aa;
+  border-radius: 12px;
+  color: #82766e;
+  text-align: center;
+}
+
+/* Ajustes para telas menores */
+@media (max-width: 850px) {
+  .produtos-lista {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .produtos-intro {
+    min-height: 240px;
+    padding: 40px 22px;
+  }
+
+  .produtos-conteudo {
+    padding: 38px 18px 50px;
+  }
+
+  .produtos-topo {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .produtos-topo h2 {
+    font-size: 26px;
+  }
+
+  .produtos-lista {
+    grid-template-columns: 1fr;
+  }
+
+  .produto-imagem {
+    min-height: 150px;
+  }
+}

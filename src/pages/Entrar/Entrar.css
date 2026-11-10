@@ -1,0 +1,251 @@
+.pagina-entrar {
+  min-height: 75vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 55px 20px;
+  background: #f6f0e8;
+  color: #514943;
+}
+
+.entrar-card {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  width: 100%;
+  max-width: 950px;
+  min-height: 520px;
+  overflow: hidden;
+  border-radius: 22px;
+  background: #fffdf9;
+  box-shadow: 0 12px 40px #4b2d2718;
+}
+
+.entrar-ilustracao {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  background: #e9dccb;
+  text-align: center;
+}
+
+.entrar-patinha {
+  display: grid;
+  place-items: center;
+  width: 125px;
+  height: 125px;
+  margin-bottom: 25px;
+  border-radius: 50%;
+  background: #fffaf4;
+  color: #4b2d27;
+  font-size: 65px;
+}
+
+.entrar-ilustracao h2 {
+  margin: 0 0 12px;
+  color: #4b2d27;
+  font-size: 27px;
+}
+
+.entrar-ilustracao p {
+  max-width: 280px;
+  color: #75675e;
+  line-height: 1.7;
+}
+
+.entrar-conteudo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 48px 55px;
+  background: #fffdf9;
+}
+
+.entrar-etiqueta {
+  color: #a77f6d;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+.entrar-titulo h1 {
+  margin: 12px 0 8px;
+  color: #3f302b;
+  font-size: 34px;
+}
+
+.entrar-titulo p {
+  margin: 0 0 28px;
+  color: #82766e;
+  line-height: 1.6;
+}
+
+.entrar-formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.entrar-formulario label {
+  margin-top: 8px;
+  color: #514943;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.entrar-formulario input {
+  width: 100%;
+  min-width: 0;
+  padding: 13px 14px;
+  border: 1px solid #ded2c5;
+  border-radius: 9px;
+  background: #fff;
+  color: #514943;
+  font: inherit;
+  box-sizing: border-box;
+}
+
+.entrar-formulario input::placeholder {
+  color: #b9ada3;
+}
+
+.entrar-formulario input:focus {
+  outline: 2px solid #c6a995;
+  border-color: #a77f6d;
+}
+
+.entrar-senha {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.entrar-senha input {
+  flex: 1;
+}
+
+.mostrar-senha {
+  padding: 10px 5px;
+  border: none;
+  background: transparent;
+  color: #a77f6d;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.entrar-botao {
+  width: 100%;
+  margin-top: 18px;
+  padding: 14px;
+  border: none;
+  border-radius: 999px;
+  background: #4b2d27;
+  color: #fffaf6;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.entrar-botao:hover {
+  background: #654137;
+  transform: translateY(-1px);
+}
+
+.entrar-botao:focus-visible,
+.mostrar-senha:focus-visible,
+.entrar-link:focus-visible {
+  outline: 3px solid #c6a995;
+  outline-offset: 3px;
+}
+
+.entrar-alternativa {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  margin-top: 24px;
+  font-size: 14px;
+}
+
+.entrar-alternativa p {
+  margin: 0;
+  color: #82766e;
+}
+
+.entrar-link {
+  border: none;
+  background: transparent;
+  color: #a77f6d;
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.entrar-link:hover {
+  color: #654137;
+  text-decoration: underline;
+}
+
+.entrar-voltar {
+  display: block;
+  margin-top: 25px;
+  color: #82766e;
+  font-size: 13px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.entrar-voltar:hover {
+  color: #a77f6d;
+  text-decoration: underline;
+}
+
+.entrar-mensagem {
+  padding: 18px;
+  border: 1px solid #d7e4d6;
+  border-radius: 12px;
+  background: #f2f7ef;
+  color: #456044;
+  line-height: 1.6;
+}
+
+.entrar-mensagem h3 {
+  margin-top: 0;
+}
+
+@media (max-width: 700px) {
+  .pagina-entrar {
+    padding: 30px 15px;
+  }
+
+  .entrar-card {
+    grid-template-columns: 1fr;
+  }
+
+  .entrar-ilustracao {
+    padding: 30px 20px;
+  }
+
+  .entrar-patinha {
+    width: 85px;
+    height: 85px;
+    margin-bottom: 15px;
+    font-size: 45px;
+  }
+
+  .entrar-ilustracao h2 {
+    font-size: 22px;
+  }
+
+  .entrar-ilustracao p {
+    margin-bottom: 0;
+  }
+
+  .entrar-conteudo {
+    padding: 35px 25px;
+  }
+}
