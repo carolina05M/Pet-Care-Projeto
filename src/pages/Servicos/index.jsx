@@ -1,66 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { supabase } from "../../services/supabaseClient";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import "./Servicos.css";
 
-const servicos = [
-  {
-    id: 1,
-    nome: "Banho",
-    descricao:
-      "Um banho relaxante com produtos adequados para deixar seu pet limpo e cheiroso.",
-    preco: 50,
-    icone: "banho",
-    duracao: "1 hora",
-  },
-  {
-    id: 2,
-    nome: "Banho e tosa",
-    descricao:
-      "Banho completo e tosa para manter a pelagem do seu pet bonita e confortável.",
-    preco: 85,
-    icone: "tesoura",
-    duracao: "2 horas",
-  },
-  {
-    id: 3,
-    nome: "Corte de unhas",
-    descricao:
-      "Cuidado delicado para manter as unhas do seu companheiro aparadas.",
-    preco: 25,
-    icone: "patas",
-    duracao: "30 minutos",
-  },
-  {
-    id: 4,
-    nome: "Hidratação",
-    descricao:
-      "Um cuidado especial para ajudar a manter a pelagem macia e bem tratada.",
-    preco: 40,
-    icone: "hidratacao",
-    duracao: "45 minutos",
-  },
-  {
-    id: 5,
-    nome: "Escovação",
-    descricao:
-      "Escovação para remover pelos soltos e ajudar a desembaraçar a pelagem.",
-    preco: 30,
-    icone: "escovacao",
-    duracao: "30 minutos",
-  },
-  {
-    id: 6,
-    nome: "Dia de cuidados",
-    descricao:
-      "Uma combinação de cuidados de higiene para seu pet aproveitar um momento especial.",
-    preco: 100,
-    icone: "coracao",
-    duracao: "2 horas e 30 minutos",
-  },
-];
-
-function IconeServico({ tipo, tamanho = 32 }) {
+function IconeServico({ tipo = "banho", tamanho = 32 }) {
   const icones = {
     banho: (
       <>
@@ -80,22 +25,10 @@ function IconeServico({ tipo, tamanho = 32 }) {
     patas: (
       <>
         <ellipse cx="12" cy="16" rx="5" ry="4" />
-        <ellipse
-          cx="5.5"
-          cy="10"
-          rx="2"
-          ry="3"
-          transform="rotate(-25 5.5 10)"
-        />
+        <ellipse cx="5.5" cy="10" rx="2" ry="3" transform="rotate(-25 5.5 10)" />
         <ellipse cx="10" cy="6.5" rx="2" ry="3" />
         <ellipse cx="15" cy="6.5" rx="2" ry="3" />
-        <ellipse
-          cx="18.5"
-          cy="10"
-          rx="2"
-          ry="3"
-          transform="rotate(25 18.5 10)"
-        />
+        <ellipse cx="18.5" cy="10" rx="2" ry="3" transform="rotate(25 18.5 10)" />
       </>
     ),
     hidratacao: (
@@ -129,39 +62,168 @@ function IconeServico({ tipo, tamanho = 32 }) {
       strokeLinejoin="round"
       aria-hidden="true"
     >
-      {icones[tipo]}
+      {icones[tipo] || icones.banho}
     </svg>
   );
 }
 
 function Servicos() {
+  const [servicos, setServicos] = useState([]);
+  const [carregando, setCarregando] = useState(true);
+  const [usuarioLogado, setUsuarioLogado] = useState(null);
+
   const [servicoSelecionado, setServicoSelecionado] = useState(null);
   const [nomeTutor, setNomeTutor] = useState("");
+  const [telefone, setTelefone] = useState("");
   const [nomePet, setNomePet] = useState("");
+  const [tipoAtendimento, setTipoAtendimento] = useState("levar");
+  const [endereco, setEndereco] = useState("");
   const [data, setData] = useState("");
   const [horario, setHorario] = useState("");
+  const [enviando, setEnviando] = useState(false);
+  const [erroAgendamento, setErroAgendamento] = useState("");
   const [mensagem, setMensagem] = useState("");
+
+  useEffect(() => {
+    async function inicializar() {
+      setCarregando(true);
+
+      // 1. Verificar se há um cliente logado no Supabase Auth
+      const { data: sessao } = await supabase.auth.getUser();
+      if (sessao?.user) {
+        setUsuarioLogado(sessao.user);
+      }
+
+      // 2. Carregar catálogo de serviços
+      const { data: dadosServicos, error } = await supabase
+        .from("servicos")
+        .select("*")
+        .order("id", { ascending: true });
+
+      if (error) {
+        console.error("Erro ao buscar serviços:", error);
+      } else if (dadosServicos) {
+        setServicos(dadosServicos);
+      }
+      setCarregando(false);
+    }
+
+    inicializar();
+  }, []);
+
+  function descobrirIcone(nome) {
+    const n = nome.toLowerCase();
+    if (n.includes("tosa")) return "tesoura";
+    if (n.includes("banho")) return "banho";
+    if (n.includes("unha")) return "patas";
+    if (n.includes("hidrata")) return "hidratacao";
+    if (n.includes("escova")) return "escovacao";
+    if (n.includes("cuidados") || n.includes("dia")) return "coracao";
+    return "banho";
+  }
+
+  function formatarDuracao(minutos) {
+    if (!minutos) return "1 hora";
+    const horas = Math.floor(minutos / 60);
+    const mins = minutos % 60;
+    if (horas > 0 && mins > 0) return `${horas} hora${horas > 1 ? "s" : ""} e ${mins} minutos`;
+    if (horas > 0) return `${horas} hora${horas > 1 ? "s" : ""}`;
+    return `${mins} minutos`;
+  }
 
   function abrirAgendamento(servico) {
     setServicoSelecionado(servico);
     setMensagem("");
+    setErroAgendamento("");
+
+    // Se o usuário estiver logado, preenche automaticamente o nome único da conta dele
+    if (usuarioLogado) {
+      const nomeConta =
+        usuarioLogado.user_metadata?.nome_completo ||
+        usuarioLogado.email.split("@")[0];
+      setNomeTutor(nomeConta);
+    }
   }
 
   function fecharAgendamento() {
     setServicoSelecionado(null);
     setMensagem("");
+    setErroAgendamento("");
+    setTelefone("");
+    setNomePet("");
+    setTipoAtendimento("levar");
+    setEndereco("");
+    setData("");
+    setHorario("");
   }
 
-  function enviarAgendamento(event) {
+  async function enviarAgendamento(event) {
     event.preventDefault();
+    if (!servicoSelecionado || !usuarioLogado) return;
 
-    if (!servicoSelecionado) {
-      return;
+    setEnviando(true);
+    setErroAgendamento("");
+
+    const petNormalizado = nomePet.trim().toLowerCase();
+
+    // 1. Verificar duplicidade: impede agendar o mesmo serviço para o mesmo pet no mesmo dia
+    const { data: existentes, error: erroConsulta } = await supabase
+      .from("agendamentos")
+      .select("id, nome_pet, data_hora, servico_id, status")
+      .eq("servico_id", servicoSelecionado.id)
+      .gte("data_hora", `${data}T00:00:00`)
+      .lte("data_hora", `${data}T23:59:59`);
+
+    if (!erroConsulta && existentes && existentes.length > 0) {
+      const jaAgendado = existentes.some(
+        (item) =>
+          item.nome_pet?.trim().toLowerCase() === petNormalizado &&
+          item.status !== "cancelado"
+      );
+
+      if (jaAgendado) {
+        setEnviando(false);
+        setErroAgendamento(
+          `O pet "${nomePet}" já possui um agendamento de ${servicoSelecionado.nome} para o dia ${data
+            .split("-")
+            .reverse()
+            .join("/")}. Não é permitido duplicar o mesmo serviço no mesmo dia.`
+        );
+        return;
+      }
     }
 
-    setMensagem(
-      `Solicitação demonstrativa recebida! ${nomeTutor}, você selecionou ${servicoSelecionado.nome} para o pet ${nomePet}, em ${data}, às ${horario}.`
-    );
+    // 2. Salvar no Supabase vinculado ao tutor único
+    const dataHoraFormatada = `${data}T${horario}:00`;
+
+    const dadosEnvio = {
+      servico_id: servicoSelecionado.id,
+      data_hora: dataHoraFormatada,
+      nome_tutor: nomeTutor,
+      telefone: telefone,
+      nome_pet: nomePet.trim(),
+      horario: horario,
+      tipo_atendimento: tipoAtendimento,
+      endereco: tipoAtendimento === "buscar" ? endereco : "Cliente levará na loja",
+      status: "pendente",
+    };
+
+    const { error } = await supabase.from("agendamentos").insert([dadosEnvio]);
+
+    setEnviando(false);
+
+    if (error) {
+      console.error("Erro ao salvar agendamento:", error);
+      setErroAgendamento("Não foi possível salvar o agendamento. Tente novamente!");
+    } else {
+      setMensagem(
+        `Agendamento confirmado! ${nomeTutor}, reservamos o serviço de ${servicoSelecionado.nome} para o pet ${nomePet} (${data.split("-").reverse().join("/")} às ${horario}). ${
+          tipoAtendimento === "buscar"
+            ? "Nossa equipe irá buscar em seu endereço."
+            : "Você levará o pet até nossa loja."
+        }`
+      );
+    }
   }
 
   return (
@@ -170,63 +232,41 @@ function Servicos() {
 
       <main className="pagina-servicos">
         <section className="servicos-intro">
-          <span className="servicos-etiqueta">
-            Cuidado e carinho em cada detalhe
-          </span>
-
+          <span className="servicos-etiqueta">Cuidado e carinho em cada detalhe</span>
           <h1>Nossos serviços</h1>
-
-          <p>
-            Conheça nossos cuidados especiais e escolha
-            o que seu melhor amigo precisa.
-          </p>
+          <p>Conheça nossos cuidados especiais e escolha o que seu melhor amigo precisa.</p>
         </section>
 
-        <section className="servicos-lista">
-          {servicos.map((servico) => (
-            <article className="servico-card" key={servico.id}>
-              <div className="servico-icone">
-                <IconeServico tipo={servico.icone} />
-              </div>
+        {carregando ? (
+          <p style={{ textAlign: "center", padding: "2rem" }}>Carregando serviços disponíveis...</p>
+        ) : (
+          <section className="servicos-lista">
+            {servicos.map((servico) => (
+              <article className="servico-card" key={servico.id}>
+                <div className="servico-icone">
+                  <IconeServico tipo={descobrirIcone(servico.nome)} />
+                </div>
 
-              <h2>{servico.nome}</h2>
+                <h2>{servico.nome}</h2>
+                <p className="servico-descricao">{servico.descricao}</p>
+                <p className="servico-duracao">
+                  <strong>Duração estimada:</strong> {formatarDuracao(servico.duracao_minutos)}
+                </p>
+                <p className="servico-preco">
+                  R$ {Number(servico.preco).toFixed(2).replace(".", ",")}
+                </p>
 
-              <p className="servico-descricao">
-                {servico.descricao}
-              </p>
-
-              <p className="servico-duracao">
-                <strong>Duração estimada:</strong> {servico.duracao}
-              </p>
-
-              <p className="servico-preco">
-                R$ {servico.preco.toFixed(2).replace(".", ",")}
-              </p>
-
-              <button
-                className="botao-agendar"
-                onClick={() => abrirAgendamento(servico)}
-              >
-                Agendar agora
-              </button>
-            </article>
-          ))}
-        </section>
-
-        <section className="servicos-aviso">
-          <h2>Tem dúvidas sobre nossos serviços?</h2>
-          <p>
-            Entre em contato com nossa equipe para saber
-            mais sobre os cuidados oferecidos.
-          </p>
-        </section>
+                <button className="botao-agendar" onClick={() => abrirAgendamento(servico)}>
+                  Agendar agora
+                </button>
+              </article>
+            ))}
+          </section>
+        )}
       </main>
 
       {servicoSelecionado && (
-        <div
-          className="modal-fundo"
-          onClick={fecharAgendamento}
-        >
+        <div className="modal-fundo" onClick={fecharAgendamento}>
           <section
             className="modal-agendamento"
             role="dialog"
@@ -243,93 +283,146 @@ function Servicos() {
               ×
             </button>
 
-            <h2 id="titulo-agendamento">
-              Solicitar agendamento
-            </h2>
-
+            <h2 id="titulo-agendamento">Solicitar agendamento</h2>
             <p>
-              Serviço escolhido:{" "}
-              <strong>{servicoSelecionado.nome}</strong>
+              Serviço escolhido: <strong>{servicoSelecionado.nome}</strong>
             </p>
 
-            {mensagem ? (
+            {/* Trava de Segurança: exige conta única logada */}
+            {!usuarioLogado ? (
+              <div
+                style={{
+                  backgroundColor: "#fef3c7",
+                  color: "#92400e",
+                  padding: "1.2rem",
+                  borderRadius: "10px",
+                  marginTop: "1rem",
+                  textAlign: "center",
+                }}
+              >
+                <h3 style={{ marginBottom: "0.5rem" }}>🔒 Login necessário</h3>
+                <p style={{ marginBottom: "1rem", fontSize: "0.95rem" }}>
+                  Para evitar agendamentos duplicados e garantir seu histórico, entre na sua conta antes de agendar.
+                </p>
+                <Link
+                  to="/entrar"
+                  className="botao-agendar"
+                  style={{ display: "inline-block", textDecoration: "none" }}
+                >
+                  Entrar ou Criar Conta
+                </Link>
+              </div>
+            ) : mensagem ? (
               <div className="mensagem-sucesso" role="status">
                 <h3>
-                  <IconeServico tipo="patas" tamanho={22} />
-                  {" "}Tudo certo!
+                  <IconeServico tipo="patas" tamanho={22} /> Tudo certo!
                 </h3>
-
                 <p>{mensagem}</p>
-
-                <p>
-                  Esta é apenas uma demonstração. Seu
-                  agendamento ainda não foi salvo.
-                </p>
-
-                <button
-                  type="button"
-                  className="botao-agendar"
-                  onClick={fecharAgendamento}
-                >
+                <button type="button" className="botao-agendar" onClick={fecharAgendamento}>
                   Fechar
                 </button>
               </div>
             ) : (
-              <form
-                className="form-agendamento"
-                onSubmit={enviarAgendamento}
-              >
-                <label htmlFor="nome-tutor">
-                  Nome do tutor
-                </label>
+              <form className="form-agendamento" onSubmit={enviarAgendamento}>
+                {erroAgendamento && (
+                  <div
+                    role="alert"
+                    style={{
+                      backgroundColor: "#fee2e2",
+                      color: "#991b1b",
+                      padding: "10px 12px",
+                      borderRadius: "8px",
+                      marginBottom: "1rem",
+                      fontSize: "0.9rem",
+                    }}
+                  >
+                    ⚠️ {erroAgendamento}
+                  </div>
+                )}
+
+                <label htmlFor="nome-tutor">Tutor (Conta vinculada)</label>
                 <input
                   id="nome-tutor"
                   type="text"
                   value={nomeTutor}
-                  onChange={(event) =>
-                    setNomeTutor(event.target.value)
-                  }
-                  placeholder="Digite seu nome"
+                  readOnly
+                  style={{ backgroundColor: "#f3f4f6", cursor: "not-allowed" }}
+                />
+
+                <label htmlFor="telefone">Número de telefone / WhatsApp</label>
+                <input
+                  id="telefone"
+                  type="text"
+                  value={telefone}
+                  onChange={(e) => setTelefone(e.target.value)}
+                  placeholder="(00) 00000-0000"
                   required
                 />
 
-                <label htmlFor="nome-pet">
-                  Nome do pet
-                </label>
+                <label htmlFor="nome-pet">Nome do pet</label>
                 <input
                   id="nome-pet"
                   type="text"
                   value={nomePet}
-                  onChange={(event) =>
-                    setNomePet(event.target.value)
-                  }
+                  onChange={(e) => setNomePet(e.target.value)}
                   placeholder="Digite o nome do seu pet"
                   required
                 />
 
-                <label htmlFor="data-agendamento">
-                  Data desejada
-                </label>
+                <label>Como prefere realizar o atendimento?</label>
+                <div style={{ display: "flex", gap: "1rem", marginBottom: "1rem" }}>
+                  <label style={{ cursor: "pointer", fontWeight: "normal" }}>
+                    <input
+                      type="radio"
+                      name="tipoAtendimento"
+                      value="levar"
+                      checked={tipoAtendimento === "levar"}
+                      onChange={(e) => setTipoAtendimento(e.target.value)}
+                    />{" "}
+                    Vou levar na loja
+                  </label>
+
+                  <label style={{ cursor: "pointer", fontWeight: "normal" }}>
+                    <input
+                      type="radio"
+                      name="tipoAtendimento"
+                      value="buscar"
+                      checked={tipoAtendimento === "buscar"}
+                      onChange={(e) => setTipoAtendimento(e.target.value)}
+                    />{" "}
+                    Quero que busque em casa
+                  </label>
+                </div>
+
+                {tipoAtendimento === "buscar" && (
+                  <>
+                    <label htmlFor="endereco">Endereço completo (Rua, Número, Bairro)</label>
+                    <input
+                      id="endereco"
+                      type="text"
+                      value={endereco}
+                      onChange={(e) => setEndereco(e.target.value)}
+                      placeholder="Ex: Rua das Flores, 123 - Centro"
+                      required={tipoAtendimento === "buscar"}
+                    />
+                  </>
+                )}
+
+                <label htmlFor="data-agendamento">Data desejada</label>
                 <input
                   id="data-agendamento"
                   type="date"
                   value={data}
-                  onChange={(event) =>
-                    setData(event.target.value)
-                  }
+                  onChange={(e) => setData(e.target.value)}
                   min={new Date().toLocaleDateString("en-CA")}
                   required
                 />
 
-                <label htmlFor="horario-agendamento">
-                  Horário desejado
-                </label>
+                <label htmlFor="horario-agendamento">Horário desejado</label>
                 <select
                   id="horario-agendamento"
                   value={horario}
-                  onChange={(event) =>
-                    setHorario(event.target.value)
-                  }
+                  onChange={(e) => setHorario(e.target.value)}
                   required
                 >
                   <option value="">Selecione um horário</option>
@@ -342,11 +435,8 @@ function Servicos() {
                   <option value="16:00">16:00</option>
                 </select>
 
-                <button
-                  type="submit"
-                  className="botao-agendar"
-                >
-                  Enviar solicitação
+                <button type="submit" className="botao-agendar" disabled={enviando}>
+                  {enviando ? "Verificando e salvando..." : "Enviar solicitação"}
                 </button>
               </form>
             )}

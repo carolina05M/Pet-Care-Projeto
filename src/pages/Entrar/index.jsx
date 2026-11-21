@@ -1,38 +1,72 @@
-
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { supabase } from "../../services/supabaseClient";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import "./Entrar.css";
 
 function Entrar() {
+  const navigate = useNavigate();
   const [modoCadastro, setModoCadastro] = useState(false);
   const [mostrarSenha, setMostrarSenha] = useState(false);
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
+  const [carregando, setCarregando] = useState(false);
+  const [erro, setErro] = useState("");
   const [mensagem, setMensagem] = useState("");
 
   function trocarModo() {
     setModoCadastro((atual) => !atual);
     setMostrarSenha(false);
     setMensagem("");
+    setErro("");
     setNome("");
     setEmail("");
     setSenha("");
   }
 
-  function enviarFormulario(event) {
+  async function enviarFormulario(event) {
     event.preventDefault();
+    setCarregando(true);
+    setErro("");
+    setMensagem("");
 
     if (modoCadastro) {
-      setMensagem(
-        `Cadastro demonstrativo preenchido! Olá, ${nome}. A criação real da conta será ativada quando conectarmos o Supabase.`
-      );
+      // Criar conta real no Supabase Auth
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password: senha,
+        options: {
+          data: {
+            nome_completo: nome,
+          },
+        },
+      });
+
+      setCarregando(false);
+
+      if (error) {
+        setErro(error.message);
+      } else if (data?.user) {
+        setMensagem(
+          `Conta criada com sucesso para ${nome}! Se a confirmação de e-mail estiver ativa no Supabase, verifique sua caixa de entrada ou já tente fazer login.`
+        );
+      }
     } else {
-      setMensagem(
-        "Formulário preenchido! O login real será ativado quando conectarmos o Supabase."
-      );
+      // Fazer login real no Supabase Auth
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password: senha,
+      });
+
+      setCarregando(false);
+
+      if (error) {
+        setErro("E-mail ou senha inválidos. Verifique seus dados e tente novamente.");
+      } else if (data?.user) {
+        navigate("/");
+      }
     }
   }
 
@@ -68,6 +102,22 @@ function Entrar() {
               </p>
             </div>
 
+            {erro && (
+              <div
+                role="alert"
+                style={{
+                  backgroundColor: "#fee2e2",
+                  color: "#991b1b",
+                  padding: "12px",
+                  borderRadius: "8px",
+                  marginBottom: "1rem",
+                  fontSize: "0.9rem",
+                }}
+              >
+                ⚠️ {erro}
+              </div>
+            )}
+
             {mensagem ? (
               <div className="entrar-mensagem" role="status">
                 <h3>🐶 Tudo certo!</h3>
@@ -76,9 +126,12 @@ function Entrar() {
                 <button
                   type="button"
                   className="entrar-botao"
-                  onClick={() => setMensagem("")}
+                  onClick={() => {
+                    setMensagem("");
+                    setModoCadastro(false);
+                  }}
                 >
-                  Voltar ao formulário
+                  Ir para o Login
                 </button>
               </div>
             ) : (
@@ -130,7 +183,7 @@ function Entrar() {
                   <input
                     id="senha-cliente"
                     type={mostrarSenha ? "text" : "password"}
-                    placeholder="Digite sua senha"
+                    placeholder="Digite sua senha (mín. 6 caracteres)"
                     value={senha}
                     onChange={(event) =>
                       setSenha(event.target.value)
@@ -163,8 +216,11 @@ function Entrar() {
                 <button
                   type="submit"
                   className="entrar-botao"
+                  disabled={carregando}
                 >
-                  {modoCadastro
+                  {carregando
+                    ? "Aguarde..."
+                    : modoCadastro
                     ? "Criar minha conta"
                     : "Entrar"}
                 </button>

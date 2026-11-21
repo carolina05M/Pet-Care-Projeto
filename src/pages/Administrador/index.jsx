@@ -1,100 +1,70 @@
+import { useState } from "react";
+import { supabase } from "../../services/supabaseClient";
 
-import "./Administrador.css";
+function CadastroProdutoAdmin() {
+  const [nome, setNome] = useState("");
+  const [descricao, setDescricao] = useState("");
+  const [preco, setPreco] = useState("");
+  const [carregando, setCarregando] = useState(false);
 
-function Administrador() {
+  async function handleSubmit(e) {
+    e.preventDefault();
+    setCarregando(true);
+
+    const { error } = await supabase.from("produtos").insert([
+      {
+        nome: nome,
+        descricao: descricao,
+        preco: Number(preco),
+      },
+    ]);
+
+    setCarregando(false);
+
+    if (error) {
+      alert("Erro ao cadastrar produto: " + error.message);
+    } else {
+      alert("Produto cadastrado com sucesso!");
+      setNome("");
+      setDescricao("");
+      setPreco("");
+    }
+  }
+
   return (
-    <div className="administrador-layout">
-      <aside className="administrador-sidebar">
-        <div className="administrador-logo">
-          <span>🐾</span>
-          <h2>PetCare</h2>
-          <p>Painel Administrativo</p>
-        </div>
+    <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "10px", maxWidth: "400px", background: "#fff", padding: "20px", borderRadius: "8px" }}>
+      <h3>Cadastrar Novo Produto</h3>
+      
+      <input
+        type="text"
+        placeholder="Nome do Produto"
+        value={nome}
+        onChange={(e) => setNome(e.target.value)}
+        required
+        style={{ padding: "8px", borderRadius: "4px", border: "1px solid #ccc" }}
+      />
 
-        <nav className="administrador-menu">
-          <a href="#inicio">🏠 Início</a>
-          <a href="#agendamentos">📅 Agendamentos</a>
-          <a href="#servicos">✂️ Serviços</a>
-          <a href="#produtos">🛍️ Produtos</a>
-          <a href="#categorias">🏷️ Categorias</a>
-          <a href="#clientes">👥 Clientes</a>
-          <a href="#pets">🐾 Pets</a>
-          <a href="#mensagens">✉️ Mensagens</a>
-        </nav>
-      </aside>
+      <textarea
+        placeholder="Descrição"
+        value={descricao}
+        onChange={(e) => setDescricao(e.target.value)}
+        required
+        style={{ padding: "8px", borderRadius: "4px", border: "1px solid #ccc" }}
+      />
 
-      <main className="administrador-conteudo" id="inicio">
-        <header className="administrador-cabecalho">
-          <h1>Administrador</h1>
-          <a href="/">← Voltar ao PetCare</a>
-        </header>
+      <input
+        type="number"
+        step="0.01"
+        placeholder="Preço (Ex: 49.90)"
+        value={preco}
+        onChange={(e) => setPreco(e.target.value)}
+        required
+        style={{ padding: "8px", borderRadius: "4px", border: "1px solid #ccc" }}
+      />
 
-        <section className="administrador-indicadores">
-          <article className="administrador-card">
-            <span>👥</span>
-            <p>Clientes ativos</p>
-            <h2>2.143</h2>
-            <small>+12%</small>
-          </article>
-
-          <article className="administrador-card">
-            <span>📅</span>
-            <p>Agendamentos hoje</p>
-            <h2>23</h2>
-            <small>+5</small>
-          </article>
-
-          <article className="administrador-card">
-            <span>💰</span>
-            <p>Receita do mês</p>
-            <h2>R$ 18,9 mil</h2>
-            <small>+8%</small>
-          </article>
-
-          <article className="administrador-card">
-            <span>🐾</span>
-            <p>Pets cadastrados</p>
-            <h2>3.891</h2>
-            <small>+47</small>
-          </article>
-        </section>
-
-        <section className="administrador-painel" id="agendamentos">
-          <h2>Agendamentos da semana</h2>
-
-          <div className="administrador-grafico">
-            {[
-              { dia: "Seg", valor: 8 },
-              { dia: "Ter", valor: 12 },
-              { dia: "Qua", valor: 6 },
-              { dia: "Qui", valor: 15 },
-              { dia: "Sex", valor: 10 },
-              { dia: "Sáb", valor: 18 },
-              { dia: "Dom", valor: 4 },
-            ].map((item) => (
-              <div className="administrador-barra-item" key={item.dia}>
-                <span>{item.valor}</span>
-                <div
-                  className="administrador-barra"
-                  style={{ height: `${item.valor * 8}px` }}
-                />
-                <small>{item.dia}</small>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section className="administrador-painel" id="clientes">
-          <h2>Atividade administrativa</h2>
-          <p>Bem-vindo ao painel administrativo do PetCare.</p>
-          <p>
-            Aqui você poderá acompanhar clientes, pets, serviços,
-            produtos e agendamentos.
-          </p>
-        </section>
-      </main>
-    </div>
+      <button type="submit" disabled={carregando} style={{ padding: "10px", background: "#4b2d27", color: "#fff", border: "none", borderRadius: "4px", cursor: "pointer" }}>
+        {carregando ? "Cadastrando..." : "Salvar Produto"}
+      </button>
+    </form>
   );
 }
-
-export default Administrador;
