@@ -1,10 +1,10 @@
-# 🐾 PetCare — Cuidado, carinho e praticidade para o seu pet!
+# PetCare — Cuidado, carinho e praticidade para o seu pet!
 
 Uma plataforma web desenvolvida para conectar tutores aos cuidados que seus pets merecem, oferecendo praticidade na compra de produtos, agendamento de serviços e gerenciamento de um petshop.
 
 ---
 
-## 📋 Sobre o Projeto
+##  Sobre o Projeto
 
 O **PetCare** é uma aplicação web desenvolvida com o objetivo de modernizar e facilitar a experiência de tutores de animais de estimação e a administração de petshops.
 
@@ -12,7 +12,7 @@ A plataforma reúne, em um único ambiente digital, funcionalidades de loja virt
 
 Além da experiência voltada aos clientes, o projeto também contempla uma área administrativa para acompanhamento e gerenciamento das atividades do estabelecimento, com integração ao banco de dados em nuvem.
 
-## 🎯 Objetivos
+## Objetivos
 
 - Desenvolver uma plataforma digital voltada ao universo pet.
 - Facilitar o acesso a produtos e serviços para animais de estimação.
@@ -22,33 +22,33 @@ Além da experiência voltada aos clientes, o projeto também contempla uma áre
 - Aplicar conceitos de desenvolvimento web, componentização e responsividade.
 - Integrar o front-end a uma solução moderna de backend e banco de dados.
 
-## ✨ Funcionalidades
+## Funcionalidades
 
-### 🏠 Página Inicial
+### Página Inicial
 - Apresentação da identidade visual do PetCare.
 - Destaques dos produtos e serviços.
 - Navegação intuitiva entre as páginas.
 
-### 🛍️ Produtos
+### Produtos
 - Listagem dinâmica de produtos cadastrados no Supabase.
 - Pesquisa em tempo real por nome.
 - Exibição de preços e informações dos produtos.
 - Carregamento condicional de imagens.
 - Seleção de quantidade e interação com o carrinho.
 
-### 🛒 Carrinho e Entrega
+### Carrinho e Entrega
 - Adição e acompanhamento de produtos selecionados.
 - Contador de itens no carrinho.
 - Interface para organização da compra.
 - Opções de entrega conforme a implementação da aplicação.
 
-### 🐶 Serviços
+### Serviços
 - Listagem dinâmica dos serviços disponíveis.
 - Exibição de informações e duração dos procedimentos.
 - Identificação visual por ícones.
 - Serviços como banho, banho e tosa, corte de unhas, hidratação, escovação e dia de cuidados.
 
-### 📅 Sistema de Agendamentos
+### Sistema de Agendamentos
 - Formulário integrado ao Supabase.
 - Cadastro do nome completo do tutor.
 - Registro de telefone ou WhatsApp.
@@ -58,7 +58,7 @@ Além da experiência voltada aos clientes, o projeto também contempla uma áre
 - Exibição condicional do campo de endereço quando necessário.
 - Armazenamento dos agendamentos no banco de dados.
 
-### ⚙️ Painel Administrativo
+### Painel Administrativo
 Área destinada ao gerenciamento do petshop, planejada para centralizar informações importantes, como:
 
 - Visualização dos agendamentos.
@@ -67,7 +67,7 @@ Além da experiência voltada aos clientes, o projeto também contempla uma áre
 - Consulta das modalidades de atendimento.
 - Gerenciamento das informações do estabelecimento.
 
-## 🛠️ Tecnologias Utilizadas
+## Tecnologias Utilizadas
 
 | Tecnologia | Aplicação |
 |---|---|
@@ -79,7 +79,7 @@ Além da experiência voltada aos clientes, o projeto também contempla uma áre
 | Git | Controle de versão |
 | GitHub | Hospedagem do código e colaboração |
 
-## 🗄️ Banco de Dados
+## Banco de Dados
 
 O projeto utiliza o **Supabase** como solução de backend e armazenamento de dados.
 
@@ -91,7 +91,7 @@ Principais tabelas implementadas:
 
 A aplicação utiliza políticas de segurança em nível de linha (RLS), configuradas para controlar o acesso aos dados.
 
-## 🎨 Identidade Visual
+## Identidade Visual
 
 A identidade visual do PetCare foi desenvolvida para transmitir acolhimento, confiança, carinho e bem-estar animal.
 
@@ -103,7 +103,7 @@ A paleta de cores utiliza tons terrosos e suaves:
 | Bege claro | `#F6F0E8` | Fundos e áreas de conteúdo |
 | Caramelo/Terracota | `#BD855D` | Botões, destaques e elementos interativos |
 
-## 🚀 Como Executar o Projeto
+## Como Executar o Projeto
 
 ### Pré-requisitos
 
@@ -176,7 +176,7 @@ PetCare/
 
 *Observação: a estrutura acima é ilustrativa e pode variar conforme a organização atual dos arquivos do projeto.*
 
-## 📚 Aprendizados e Desenvolvimento Acadêmico
+## Aprendizados e Desenvolvimento Acadêmico
 
 O desenvolvimento do PetCare representa a aplicação prática dos conhecimentos adquiridos no curso de **Análise e Desenvolvimento de Sistemas (ADS)**.
 
@@ -189,20 +189,6 @@ Durante o projeto, são trabalhados conceitos como:
 - Operações de cadastro e consulta de informações.
 - Organização de código e versionamento com Git e GitHub.
 - Experiência do usuário e design responsivo.
-
-## 💚 Considerações Finais
-
-O PetCare busca oferecer uma solução digital que simplifique a rotina dos tutores e contribua para a organização e eficiência dos petshops.
-
-Mais do que uma aplicação web, o projeto representa uma oportunidade de transformar conhecimentos acadêmicos em uma solução prática, aproximando tecnologia, inovação e cuidado animal.
-
----
-
-<div align="center">
-
-### 🐾 PetCare
-
-**Todo pet merece cuidado, carinho e amor!**
 
 Projeto acadêmico — Curso de Análise e Desenvolvimento de Sistemas (ADS).
 
