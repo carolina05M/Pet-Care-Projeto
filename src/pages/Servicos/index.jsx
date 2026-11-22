@@ -71,6 +71,7 @@ function Servicos() {
   const [servicos, setServicos] = useState([]);
   const [carregando, setCarregando] = useState(true);
   const [usuarioLogado, setUsuarioLogado] = useState(null);
+  const [totalAgendamentos, setTotalAgendamentos] = useState(0);
 
   const [servicoSelecionado, setServicoSelecionado] = useState(null);
   const [nomeTutor, setNomeTutor] = useState("");
@@ -92,6 +93,16 @@ function Servicos() {
       const { data: sessao } = await supabase.auth.getUser();
       if (sessao?.user) {
         setUsuarioLogado(sessao.user);
+
+        // Buscar quantos agendamentos este utilizador tem para mostrar no indicador estilo carrinho
+        const { count } = await supabase
+          .from("agendamentos")
+          .select("*", { count: "exact", head: true })
+          .eq("email", sessao.user.email);
+
+        if (count !== null) {
+          setTotalAgendamentos(count);
+        }
       }
 
       // 2. Carregar catálogo de serviços
@@ -136,7 +147,6 @@ function Servicos() {
     setMensagem("");
     setErroAgendamento("");
 
-    // Se o usuário estiver logado, preenche automaticamente o nome único da conta dele
     if (usuarioLogado) {
       const nomeConta =
         usuarioLogado.user_metadata?.nome_completo ||
@@ -166,7 +176,6 @@ function Servicos() {
 
     const petNormalizado = nomePet.trim().toLowerCase();
 
-    // 1. Verificar duplicidade: impede agendar o mesmo serviço para o mesmo pet no mesmo dia
     const { data: existentes, error: erroConsulta } = await supabase
       .from("agendamentos")
       .select("id, nome_pet, data_hora, servico_id, status")
@@ -187,19 +196,21 @@ function Servicos() {
           `O pet "${nomePet}" já possui um agendamento de ${servicoSelecionado.nome} para o dia ${data
             .split("-")
             .reverse()
-            .join("/")}. Não é permitido duplicar o mesmo serviço no mesmo dia.`
+            .join("/")}.`
         );
         return;
       }
     }
 
-    // 2. Salvar no Supabase vinculado ao tutor único
     const dataHoraFormatada = `${data}T${horario}:00`;
 
     const dadosEnvio = {
       servico_id: servicoSelecionado.id,
+      servico: servicoSelecionado.nome,
       data_hora: dataHoraFormatada,
+      data: data,
       nome_tutor: nomeTutor,
+      email: usuarioLogado.email,
       telefone: telefone,
       nome_pet: nomePet.trim(),
       horario: horario,
@@ -216,12 +227,9 @@ function Servicos() {
       console.error("Erro ao salvar agendamento:", error);
       setErroAgendamento("Não foi possível salvar o agendamento. Tente novamente!");
     } else {
+      setTotalAgendamentos((prev) => prev + 1);
       setMensagem(
-        `Agendamento confirmado! ${nomeTutor}, reservamos o serviço de ${servicoSelecionado.nome} para o pet ${nomePet} (${data.split("-").reverse().join("/")} às ${horario}). ${
-          tipoAtendimento === "buscar"
-            ? "Nossa equipe irá buscar em seu endereço."
-            : "Você levará o pet até nossa loja."
-        }`
+        `Agendamento confirmado! ${nomeTutor}, reservamos o serviço de ${servicoSelecionado.nome} para o pet ${nomePet} (${data.split("-").reverse().join("/")} às ${horario}).`
       );
     }
   }
@@ -236,6 +244,35 @@ function Servicos() {
           <h1>Nossos serviços</h1>
           <p>Conheça nossos cuidados especiais e escolha o que seu melhor amigo precisa.</p>
         </section>
+
+        {/* Barra superior estilo carrinho de produtos */}
+        <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 20px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <div>
+            <span style={{ fontSize: "12px", color: "#666", textTransform: "uppercase", fontWeight: "bold" }}>Agenda Online</span>
+            <h2 style={{ color: "#4B2D27", fontSize: "22px", margin: "4px 0 0 0" }}>Escolha o serviço ideal</h2>
+          </div>
+
+          {usuarioLogado && (
+            <Link
+              to="/cliente"
+              style={{
+                background: "#fff",
+                border: "1px solid #dcd6cd",
+                padding: "8px 16px",
+                borderRadius: "8px",
+                textDecoration: "none",
+                color: "#4B2D27",
+                fontWeight: "bold",
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+                boxShadow: "0 2px 4px rgba(0,0,0,0.02)"
+              }}
+            >
+              🛒 Meus Agendamentos: <strong>{totalAgendamentos}</strong>
+            </Link>
+          )}
+        </div>
 
         {carregando ? (
           <p style={{ textAlign: "center", padding: "2rem" }}>Carregando serviços disponíveis...</p>
@@ -288,7 +325,6 @@ function Servicos() {
               Serviço escolhido: <strong>{servicoSelecionado.nome}</strong>
             </p>
 
-            {/* Trava de Segurança: exige conta única logada */}
             {!usuarioLogado ? (
               <div
                 style={{
@@ -302,7 +338,7 @@ function Servicos() {
               >
                 <h3 style={{ marginBottom: "0.5rem" }}>🔒 Login necessário</h3>
                 <p style={{ marginBottom: "1rem", fontSize: "0.95rem" }}>
-                  Para evitar agendamentos duplicados e garantir seu histórico, entre na sua conta antes de agendar.
+                  Entre na sua conta para agendar e acompanhar no seu painel.
                 </p>
                 <Link
                   to="/entrar"
@@ -318,9 +354,18 @@ function Servicos() {
                   <IconeServico tipo="patas" tamanho={22} /> Tudo certo!
                 </h3>
                 <p>{mensagem}</p>
-                <button type="button" className="botao-agendar" onClick={fecharAgendamento}>
-                  Fechar
-                </button>
+                <div style={{ display: "flex", gap: "10px", justifyContent: "center", marginTop: "15px" }}>
+                  <Link
+                    to="/cliente"
+                    className="botao-agendar"
+                    style={{ textDecoration: "none", backgroundColor: "#BD835B" }}
+                  >
+                    Ver no Meu Carrinho / Painel
+                  </Link>
+                  <button type="button" className="botao-agendar" onClick={fecharAgendamento}>
+                    Fechar
+                  </button>
+                </div>
               </div>
             ) : (
               <form className="form-agendamento" onSubmit={enviarAgendamento}>
@@ -436,7 +481,7 @@ function Servicos() {
                 </select>
 
                 <button type="submit" className="botao-agendar" disabled={enviando}>
-                  {enviando ? "Verificando e salvando..." : "Enviar solicitação"}
+                  {enviando ? "A guardar agendamento..." : "Confirmar e adicionar ao carrinho"}
                 </button>
               </form>
             )}

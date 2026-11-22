@@ -1,7 +1,12 @@
-import { Link, NavLink } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { supabase } from "../../services/supabaseClient";
 import styles from "./Header.module.css";
 
 function Header() {
+  const navigate = useNavigate();
+  const [usuario, setUsuario] = useState(null);
+
   const links = [
     { nome: "Home", caminho: "/" },
     { nome: "Serviços", caminho: "/servicos" },
@@ -9,6 +14,26 @@ function Header() {
     { nome: "Sobre", caminho: "/sobre" },
     { nome: "Contato", caminho: "/contato" },
   ];
+
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data }) => {
+      setUsuario(data?.user || null);
+    });
+
+    const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUsuario(session?.user || null);
+    });
+
+    return () => {
+      listener?.subscription?.unsubscribe();
+    };
+  }, []);
+
+  async function handleSair() {
+    await supabase.auth.signOut();
+    setUsuario(null);
+    navigate("/");
+  }
 
   return (
     <header className={styles.header}>
@@ -37,22 +62,38 @@ function Header() {
           ))}
         </nav>
 
-        {/* Botões de acesso */}
+        {/* Botões de acesso (Sem o botão de Meus Agendamentos no topo) */}
         <div className={styles.acoes}>
-          <Link to="/entrar" className={styles.entrar}>
-            Entrar
-          </Link>
+          {usuario ? (
+            <>
+              <Link to="/administrador" className={styles.administrador}>
+                Administrador
+              </Link>
 
-          <Link
-            to="/administrador"
-            className={styles.administrador}
-          >
-            Administrador
-          </Link>
+              <button
+                type="button"
+                onClick={handleSair}
+                className={styles.entrar}
+                style={{ cursor: "pointer", background: "transparent", border: "none" }}
+              >
+                Sair
+              </button>
+            </>
+          ) : (
+            <>
+              <Link to="/entrar" className={styles.entrar}>
+                Entrar
+              </Link>
 
-          <Link to="/entrar" className={styles.comecar}>
-            Começar grátis
-          </Link>
+              <Link to="/administrador" className={styles.administrador}>
+                Administrador
+              </Link>
+
+              <Link to="/entrar" className={styles.comecar}>
+                Começar grátis
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </header>
