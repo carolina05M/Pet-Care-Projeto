@@ -1,163 +1,195 @@
-<div align="center">PetCare
+# PetCare — Cuidado, carinho e praticidade para o seu pet!
 
-Cuidado, carinho e praticidade para o seu pet!
-
-Uma plataforma desenvolvida para facilitar o acesso a produtos e serviços voltados ao cuidado dos animais de estimação.
-
-<img src="./public/Icon.sgv.png" alt="Logotipo PetCare" width="100">"React" (https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=react&logoColor=black)
-"Vite" (https://img.shields.io/badge/Vite-646CFF?style=flat-square&logo=vite&logoColor=white)
-"JavaScript" (https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black)
-"CSS3" (https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white)
-
-</div>---
-
-1. Sobre o projeto
-
-O PetCare é uma aplicação web desenvolvida com o objetivo de proporcionar praticidade e facilidade no acesso a produtos e serviços para animais de estimação.
-
-A plataforma apresenta uma interface intuitiva e acolhedora, reunindo diferentes funcionalidades em um único ambiente, buscando oferecer uma experiência agradável tanto para os tutores quanto para os administradores.
-
-Desenvolvido utilizando React e Vite, o projeto busca unir tecnologia, organização e uma identidade visual própria.
-
-2. Objetivos do projeto
-
-- Desenvolver uma plataforma digital voltada ao universo pet.
-- Facilitar a visualização de produtos e serviços.
-- Proporcionar uma experiência de navegação intuitiva.
-- Organizar as informações do estabelecimento.
-- Aplicar conhecimentos de desenvolvimento front-end.
-- Criar uma estrutura que permita futuras melhorias e integrações.
-
-3. Funcionalidades
-
-O sistema possui páginas organizadas para facilitar a navegação:
-
-- Página inicial: apresentação da plataforma e destaques.
-- Produtos: catálogo e apresentação dos produtos.
-- Serviços: informações sobre os serviços oferecidos.
-- Sobre: apresentação institucional do PetCare.
-- Contato: área destinada à comunicação com o estabelecimento.
-- Entrar: página de acesso do usuário.
-- Administrador: área destinada ao gerenciamento do sistema.
-
-4. Tecnologias utilizadas
-
-Tecnologia| Finalidade
-React| Desenvolvimento da interface e componentes.
-Vite| Ambiente de desenvolvimento.
-JavaScript| Lógica e interatividade.
-HTML5| Estruturação das páginas.
-CSS3| Estilização da aplicação.
-Git| Controle de versão.
-GitHub| Hospedagem e colaboração no código.
-
-5. Demonstração do projeto
-
-Abaixo, uma demonstração visual da interface do PetCare.
-
-<div align="center"><img src="./public/petcare-home.png" alt="Página inicial do PetCare" width="100%">Página inicial do sistema PetCare.
-
-</div>6. Estrutura do projeto
-
-A aplicação está organizada em pastas e componentes para facilitar a manutenção e a reutilização do código.
-
-PetCare/
-│
-├── public/
-│   ├── Icon.sgv.png
-│   └── petcare-home.png
-│
-├── src/
-│   ├── assets/
-│   │
-│   ├── components/
-│   │   ├── Header.jsx
-│   │   ├── Footer.jsx
-│   │   ├── Container.jsx
-│   │   └── ...
-│   │
-│   ├── pages/
-│   │   ├── Home.jsx
-│   │   ├── Produtos.jsx
-│   │   ├── Servicos.jsx
-│   │   ├── Sobre.jsx
-│   │   ├── Contato.jsx
-│   │   ├── Entrar.jsx
-│   │   └── Administrador.jsx
-│   │
-│   ├── App.jsx
-│   ├── main.jsx
-│   └── ...
-│
-├── index.html
-├── package.json
-└── README.md
-
-7. Identidade visual
-
-A identidade visual do PetCare foi desenvolvida para transmitir acolhimento, confiança e cuidado.
-
-A interface utiliza tons neutros e terrosos, criando uma aparência agradável e conectada ao universo dos animais de estimação.
-
-Cor| Código
-Bege claro| "#F6F0E8"
-Marrom escuro| "#4B2D27"
-Caramelo| "#BD835B"
-Bege suave| "#E2C3A5"
-
-8. Como executar o projeto
-
-Para executar a aplicação em sua máquina, siga os passos abaixo.
-
-1. Clone o repositório:
-
-git clone https://github.com/SantosJss/Pet-Care.git
-
-2. Acesse a pasta do projeto:
-
-cd Pet-Care
-
-3. Instale as dependências:
-
-npm install
-
-4. Inicie o servidor de desenvolvimento:
-
-npm run dev
-
-5. Acesse a aplicação:
-
-Abra no navegador o endereço disponibilizado pelo Vite:
-
-http://localhost:5173/
-
-9. Melhorias futuras
-
-O projeto possui possibilidades de expansão para se tornar um sistema ainda mais completo.
-
-Entre as melhorias planejadas estão:
-
-- [ ] Integração com banco de dados Supabase.
-- [ ] Sistema de autenticação de usuários.
-- [ ] Controle de acesso para clientes e administradores.
-- [ ] Cadastro, edição, consulta e exclusão de produtos.
-- [ ] Gerenciamento de serviços e categorias.
-- [ ] Cadastro de clientes e animais de estimação.
-- [ ] Sistema de agendamentos.
-- [ ] Aprimoramento do painel administrativo.
-
-10. Considerações finais
-
-O desenvolvimento do PetCare representa a aplicação prática dos conhecimentos adquiridos durante o curso de Análise e Desenvolvimento de Sistemas.
-
-Durante a construção do projeto, são trabalhados conceitos importantes como componentização, organização de código, desenvolvimento de interfaces, estilização e controle de versão.
-
-Além do aprendizado técnico, o projeto proporciona a oportunidade de desenvolver uma solução que une tecnologia, criatividade e cuidado com os animais.
+Uma plataforma web desenvolvida para conectar tutores aos cuidados que seus pets merecem, oferecendo praticidade na compra de produtos, agendamento de serviços e gerenciamento de um petshop.
 
 ---
 
-<div align="center">PetCare — Todo pet merece cuidado, carinho e amor!
+##  Sobre o Projeto
 
-Projeto acadêmico — Análise e Desenvolvimento de Sistemas (ADS).
+O **PetCare** é uma aplicação web desenvolvida com o objetivo de modernizar e facilitar a experiência de tutores de animais de estimação e a administração de petshops.
+
+A plataforma reúne, em um único ambiente digital, funcionalidades de loja virtual, catálogo de serviços e sistema de agendamentos, proporcionando uma navegação intuitiva, organizada e acessível.
+
+Além da experiência voltada aos clientes, o projeto também contempla uma área administrativa para acompanhamento e gerenciamento das atividades do estabelecimento, com integração ao banco de dados em nuvem.
+
+## Objetivos
+
+- Desenvolver uma plataforma digital voltada ao universo pet.
+- Facilitar o acesso a produtos e serviços para animais de estimação.
+- Implementar um catálogo dinâmico integrado ao banco de dados.
+- Desenvolver um sistema de agendamentos com diferentes modalidades de atendimento.
+- Permitir a gestão de informações por meio de uma área administrativa.
+- Aplicar conceitos de desenvolvimento web, componentização e responsividade.
+- Integrar o front-end a uma solução moderna de backend e banco de dados.
+
+## Funcionalidades
+
+### Página Inicial
+- Apresentação da identidade visual do PetCare.
+- Destaques dos produtos e serviços.
+- Navegação intuitiva entre as páginas.
+
+### Produtos
+- Listagem dinâmica de produtos cadastrados no Supabase.
+- Pesquisa em tempo real por nome.
+- Exibição de preços e informações dos produtos.
+- Carregamento condicional de imagens.
+- Seleção de quantidade e interação com o carrinho.
+
+### Carrinho e Entrega
+- Adição e acompanhamento de produtos selecionados.
+- Contador de itens no carrinho.
+- Interface para organização da compra.
+- Opções de entrega conforme a implementação da aplicação.
+
+### Serviços
+- Listagem dinâmica dos serviços disponíveis.
+- Exibição de informações e duração dos procedimentos.
+- Identificação visual por ícones.
+- Serviços como banho, banho e tosa, corte de unhas, hidratação, escovação e dia de cuidados.
+
+### Sistema de Agendamentos
+- Formulário integrado ao Supabase.
+- Cadastro do nome completo do tutor.
+- Registro de telefone ou WhatsApp.
+- Identificação do pet.
+- Seleção de data e horário.
+- Escolha entre levar o pet até a loja ou solicitar a busca em domicílio.
+- Exibição condicional do campo de endereço quando necessário.
+- Armazenamento dos agendamentos no banco de dados.
+
+### Painel Administrativo
+Área destinada ao gerenciamento do petshop, planejada para centralizar informações importantes, como:
+
+- Visualização dos agendamentos.
+- Consulta dos dados dos tutores e seus pets.
+- Acompanhamento das datas e horários.
+- Consulta das modalidades de atendimento.
+- Gerenciamento das informações do estabelecimento.
+
+## Tecnologias Utilizadas
+
+| Tecnologia | Aplicação |
+|---|---|
+| React | Construção da interface e componentes reutilizáveis |
+| Vite | Ambiente de desenvolvimento e compilação |
+| JavaScript (ES6+) | Lógica e interatividade |
+| CSS3 | Estilização e responsividade |
+| Supabase | Backend, banco de dados PostgreSQL e integração de dados |
+| Git | Controle de versão |
+| GitHub | Hospedagem do código e colaboração |
+
+## Banco de Dados
+
+O projeto utiliza o **Supabase** como solução de backend e armazenamento de dados.
+
+Principais tabelas implementadas:
+
+- `produtos` — armazenamento das informações dos produtos.
+- `servicos` — cadastro dos serviços oferecidos.
+- `agendamentos` — registro das solicitações de atendimento.
+
+A aplicação utiliza políticas de segurança em nível de linha (RLS), configuradas para controlar o acesso aos dados.
+
+## Identidade Visual
+
+A identidade visual do PetCare foi desenvolvida para transmitir acolhimento, confiança, carinho e bem-estar animal.
+
+A paleta de cores utiliza tons terrosos e suaves:
+
+| Cor | Código | Aplicação |
+|---|---|---|
+| Marrom escuro | `#4B2D27` | Cabeçalhos e textos principais |
+| Bege claro | `#F6F0E8` | Fundos e áreas de conteúdo |
+| Caramelo/Terracota | `#BD855D` | Botões, destaques e elementos interativos |
+
+## Como Executar o Projeto
+
+### Pré-requisitos
+
+Antes de começar, é necessário ter instalado:
+
+- [Node.js](https://nodejs.org/)
+- [Git](https://git-scm.com/)
+- Um editor de código, como o [Visual Studio Code](https://code.visualstudio.com/)
+
+### 1. Clone o repositório
+
+```bash
+git clone https://github.com/carolina05M/Pet-Care-Projeto.git
+```
+
+### 2. Entre na pasta do projeto
+
+```bash
+cd Pet-Care-Projeto
+```
+
+### 3. Instale as dependências
+
+```bash
+npm install
+```
+
+### 4. Configure as variáveis de ambiente
+
+Crie um arquivo `.env` na raiz do projeto e adicione:
+
+```env
+VITE_SUPABASE_URL=SUA_URL_DO_SUPABASE
+VITE_SUPABASE_ANON_KEY=SUA_CHAVE_PUBLICAVEL
+```
+
+Substitua os valores pelos dados do seu próprio projeto Supabase.
+
+**Importante:** não compartilhe chaves secretas nem envie arquivos `.env` com credenciais para o GitHub.
+
+### 5. Inicie a aplicação
+
+```bash
+npm run dev
+```
+
+O Vite disponibilizará um endereço local para acessar a aplicação pelo navegador.
+
+## 📁 Estrutura do Projeto
+
+Estrutura geral esperada de uma aplicação React com Vite:
+
+```text
+PetCare/
+├── public/
+├── src/
+│   ├── assets/
+│   ├── components/
+│   ├── pages/
+│   ├── services/
+│   ├── App.jsx
+│   ├── App.css
+│   └── main.jsx
+├── .env
+├── .gitignore
+├── index.html
+├── package.json
+└── vite.config.js
+```
+
+*Observação: a estrutura acima é ilustrativa e pode variar conforme a organização atual dos arquivos do projeto.*
+
+## Aprendizados e Desenvolvimento Acadêmico
+
+O desenvolvimento do PetCare representa a aplicação prática dos conhecimentos adquiridos no curso de **Análise e Desenvolvimento de Sistemas (ADS)**.
+
+Durante o projeto, são trabalhados conceitos como:
+
+- Desenvolvimento de interfaces com React.
+- Criação e reutilização de componentes.
+- Gerenciamento de estados e eventos.
+- Integração entre front-end e banco de dados.
+- Operações de cadastro e consulta de informações.
+- Organização de código e versionamento com Git e GitHub.
+- Experiência do usuário e design responsivo.
+
+Projeto acadêmico — Curso de Análise e Desenvolvimento de Sistemas (ADS).
 
 </div>
