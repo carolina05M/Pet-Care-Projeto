@@ -1,0 +1,22 @@
+.campo-erro {
+  display: block;
+  margin-top: 4px;
+  color: #a33a2d;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.campo-dica {
+  display: block;
+  margin-top: 4px;
+  color: #82766e;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+input[aria-invalid="true"],
+textarea[aria-invalid="true"],
+select[aria-invalid="true"] {
+  border-color: #c0564a !important;
+  outline-color: #c0564a;
+}
