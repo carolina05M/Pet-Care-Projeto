@@ -1,11 +1,9 @@
-import { useState, useEffect } from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
-import { supabase } from "../../services/supabaseClient";
+import { Link, NavLink } from "react-router-dom";
+import { useAuth } from "../../auth/useAuth";
 import styles from "./Header.module.css";
 
 function Header() {
-  const navigate = useNavigate();
-  const [usuario, setUsuario] = useState(null);
+  const { user, perfil, isAdmin, sair } = useAuth();
 
   const links = [
     { nome: "Home", caminho: "/" },
@@ -14,26 +12,6 @@ function Header() {
     { nome: "Sobre", caminho: "/sobre" },
     { nome: "Contato", caminho: "/contato" },
   ];
-
-  useEffect(() => {
-    supabase.auth.getUser().then(({ data }) => {
-      setUsuario(data?.user || null);
-    });
-
-    const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUsuario(session?.user || null);
-    });
-
-    return () => {
-      listener?.subscription?.unsubscribe();
-    };
-  }, []);
-
-  async function handleSair() {
-    await supabase.auth.signOut();
-    setUsuario(null);
-    navigate("/");
-  }
 
   return (
     <header className={styles.header}>
@@ -62,20 +40,25 @@ function Header() {
           ))}
         </nav>
 
-        {/* Botões de acesso (Sem o botão de Meus Agendamentos no topo) */}
+        {/* Botões de acesso */}
         <div className={styles.acoes}>
-          {usuario ? (
+          {user ? (
             <>
-              <Link to="/administrador" className={styles.administrador}>
-                Administrador
+              <span className={styles.saudacao}>
+                Olá, {perfil?.nome ?? "tutor"}
+              </span>
+
+              <Link to="/minha-conta" className={styles.administrador}>
+                Minha conta
               </Link>
 
-              <button
-                type="button"
-                onClick={handleSair}
-                className={styles.entrar}
-                style={{ cursor: "pointer", background: "transparent", border: "none" }}
-              >
+              {isAdmin && (
+                <Link to="/administrador" className={styles.administrador}>
+                  Administrador
+                </Link>
+              )}
+
+              <button type="button" onClick={sair} className={styles.entrar}>
                 Sair
               </button>
             </>
@@ -83,10 +66,6 @@ function Header() {
             <>
               <Link to="/entrar" className={styles.entrar}>
                 Entrar
-              </Link>
-
-              <Link to="/administrador" className={styles.administrador}>
-                Administrador
               </Link>
 
               <Link to="/entrar" className={styles.comecar}>

@@ -1,6 +1,7 @@
 import Header from "../../components/Header"
 import Footer from "../../components/Footer"
 import { Link } from "react-router-dom"
+import "./Home.css"
 
 function Home() {
   return (
@@ -16,7 +17,14 @@ function Home() {
 
         </div>
         <figure>
-          <img className="img-home" src="golden-home.svg.jpg" alt="imagem da home" />
+          <img
+            className="img-home"
+            src="/golden-home.svg.jpg"
+            alt="Cachorro golden retriever olhando para a câmera"
+            width="600"
+            height="700"
+            fetchPriority="high"
+          />
         </figure>
       </section>
       <Footer />

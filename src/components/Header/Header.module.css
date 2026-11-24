@@ -188,3 +188,14 @@
     font-size: 11px;
   }
 }
+.saudacao {
+  color: #4b2d27;
+  font-size: 12px;
+}
+
+button.entrar {
+  background: none;
+  border: 0;
+  cursor: pointer;
+  font-family: inherit;
+}
