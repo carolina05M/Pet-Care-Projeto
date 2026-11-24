@@ -71,16 +71,11 @@
 
 .produtos-carrinho {
   padding: 12px 16px;
-  border: 1px solid #d1c4b8;
+  border: 1px solid #e8ddd1;
   border-radius: 999px;
   background: #fffdf9;
   color: #4b2d27;
   white-space: nowrap;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-weight: bold;
 }
 
 /* Busca e categorias */
@@ -108,6 +103,30 @@
   border-color: #a77f6d;
 }
 
+.produtos-categorias {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.categoria-botao {
+  padding: 10px 17px;
+  border: 1px solid #d9cabe;
+  border-radius: 999px;
+  background: #fffdf9;
+  color: #654137;
+  font: inherit;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.categoria-botao:hover,
+.categoria-ativa {
+  border-color: #4b2d27;
+  background: #4b2d27;
+  color: #fffaf6;
+}
+
 /* Cartões dos produtos */
 .produtos-lista {
   display: grid;
@@ -122,8 +141,6 @@
   background: #fffdf9;
   box-shadow: 0 4px 14px #4b2d2710;
   transition: transform 0.2s, box-shadow 0.2s;
-  display: flex;
-  flex-direction: column;
 }
 
 .produto-card:hover {
@@ -136,19 +153,26 @@
   place-items: center;
   min-height: 180px;
   background: #e9dccb;
-  color: #4b2d27;
+}
+
+.produto-imagem span {
+  font-size: 64px;
 }
 
 .produto-informacoes {
   padding: 20px;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  justify-content: space-between;
+}
+
+.produto-categoria {
+  color: #a77f6d;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
 }
 
 .produto-informacoes h3 {
-  margin: 0 0 8px 0;
+  margin: 8px 0;
   color: #3f302b;
   font-family: Georgia, "Times New Roman", serif;
   font-size: 21px;
@@ -156,7 +180,7 @@
 
 .produto-informacoes p {
   min-height: 48px;
-  margin: 0 0 15px 0;
+  margin: 0;
   color: #82766e;
   font-size: 14px;
   line-height: 1.6;
@@ -166,57 +190,19 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 10px;
-  margin-top: auto;
-  border-top: 1px solid #eee;
-  padding-top: 15px;
+  gap: 12px;
+  margin-top: 20px;
 }
 
 .produto-rodape strong {
   color: #4b2d27;
-  font-size: 18px;
+  font-size: 20px;
 }
 
-.acoes-produto {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.seletor-quantidade {
-  display: flex;
-  align-items: center;
-  border: 1px solid #d9cabe;
-  border-radius: 6px;
-  overflow: hidden;
-  background: #fff;
-}
-
-.seletor-quantidade button {
-  padding: 6px 10px;
+.produto-rodape button {
+  padding: 10px 15px;
   border: none;
-  background: #f3f4f6;
-  color: #000;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-.seletor-quantidade button:hover {
-  background: #e2e8f0;
-}
-
-.seletor-quantidade span {
-  padding: 0 8px;
-  font-size: 0.9rem;
-  font-weight: bold;
-  color: #000;
-}
-
-.btn-adicionar {
-  padding: 8px 12px;
-  border: none;
-  border-radius: 6px;
+  border-radius: 999px;
   background: #4b2d27;
   color: #fffaf6;
   font-size: 13px;
@@ -225,7 +211,7 @@
   transition: background 0.2s;
 }
 
-.btn-adicionar:hover {
+.produto-rodape button:hover {
   background: #654137;
 }
 
@@ -270,4 +256,19 @@
   .produto-imagem {
     min-height: 150px;
   }
+}
+.produto-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.produto-link:hover {
+  text-decoration: underline;
+}
+
+/* Textos longos (nome/descrição vindos do banco) não estouram o card */
+.produto-card,
+.produto-informacoes {
+  min-width: 0;
+  overflow-wrap: anywhere;
 }

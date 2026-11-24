@@ -37,7 +37,7 @@ function Sobre() {
 
             <p>
               Hoje somos uma equipe de mais de 15 especialistas apaixonados,
-              atendendo mais de 2.000 famílias em São Paulo. Nosso compromisso
+              atendendo mais de 2.000 famílias em Cacoal e região. Nosso compromisso
               é oferecer o mais alto padrão de cuidado veterinário e
               bem-estar animal.
             </p>

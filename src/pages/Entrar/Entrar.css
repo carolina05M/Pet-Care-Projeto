@@ -249,3 +249,11 @@
     padding: 35px 25px;
   }
 }
+.entrar-erro {
+  padding: 12px 14px;
+  border: 1px solid #efcfcf;
+  border-radius: 10px;
+  background: #fbefef;
+  color: #8a3b3b;
+  font-size: 14px;
+}

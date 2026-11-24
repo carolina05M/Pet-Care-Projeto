@@ -1,0 +1,296 @@
+/* Estilos comuns às páginas internas do painel administrativo */
+.topo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.topo h2 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.subtitulo {
+  margin: 4px 0 0;
+  color: #795d52;
+  font-size: 14px;
+}
+
+.botao {
+  display: inline-block;
+  padding: 9px 18px;
+  border: 1px solid #4b2d27;
+  border-radius: 8px;
+  background: #4b2d27;
+  color: #fffaf5;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.botao:hover {
+  background: #70483b;
+}
+
+.botao:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.botaoSec {
+  background: transparent;
+  color: #4b2d27;
+  border-color: #d9c6b6;
+}
+
+.botaoSec:hover {
+  background: #f1e3d4;
+}
+
+.botaoPerigo {
+  background: transparent;
+  color: #8a3b30;
+  border-color: #e3c2bd;
+}
+
+.botaoPerigo:hover {
+  background: #fbf1ef;
+}
+
+.botaoPeq {
+  padding: 5px 10px;
+  font-size: 13px;
+}
+
+.aviso,
+.erro {
+  margin: 0 0 16px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  line-height: 1.5;
+}
+
+.aviso {
+  border: 1px solid #d7e4d6;
+  background: #f2f7ef;
+  color: #456044;
+}
+
+.erro {
+  border: 1px solid #e3c2bd;
+  background: #fbf1ef;
+  color: #8a3b30;
+}
+
+/* Tabelas */
+.tabelaWrap {
+  overflow-x: auto;
+  background: #fffdf9;
+  border: 1px solid #eaded2;
+  border-radius: 14px;
+}
+
+.tabela {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.tabela th,
+.tabela td {
+  padding: 12px 14px;
+  border-bottom: 1px solid #f0e6dc;
+  text-align: left;
+  vertical-align: middle;
+  overflow-wrap: anywhere;
+}
+
+.tabela th {
+  background: #f6f0e8;
+  color: #795d52;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.tabela tr:last-child td {
+  border-bottom: none;
+}
+
+.inativo td {
+  color: #a39389;
+}
+
+.celulaAcoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.mutado {
+  color: #795d52;
+  font-size: 13px;
+}
+
+/* Etiquetas */
+.etiqueta {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: #f6f0e8;
+  color: #654137;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.on,
+.status_confirmado {
+  background: #e3f0e2;
+  color: #2f5a2d;
+}
+
+.off,
+.status_cancelado {
+  background: #f3e3e0;
+  color: #8a3b30;
+}
+
+.status_pendente {
+  background: #fbf3dc;
+  color: #7a5a10;
+}
+
+.status_concluido {
+  background: #e4ecf6;
+  color: #2c4a73;
+}
+
+/* Formulários */
+.formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 22px;
+  padding: 22px;
+  background: #fffdf9;
+  border: 1px solid #eaded2;
+  border-radius: 14px;
+}
+
+.formulario h3 {
+  margin: 0 0 4px;
+}
+
+.formulario label {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.formulario input,
+.formulario select,
+.formulario textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ded2c5;
+  border-radius: 8px;
+  background: #fff;
+  color: #4b2d27;
+  font: inherit;
+}
+
+.formulario input:focus,
+.formulario select:focus,
+.formulario textarea:focus {
+  outline: 2px solid #c6a995;
+  border-color: #a77f6d;
+}
+
+.linhaCampos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.checkbox input {
+  width: auto;
+}
+
+.acoesForm {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+/* Filtros */
+.filtros {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.filtros label {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.filtros input,
+.filtros select {
+  padding: 9px 12px;
+  border: 1px solid #ded2c5;
+  border-radius: 8px;
+  background: #fff;
+  color: #4b2d27;
+  font: inherit;
+}
+
+/* Mensagens */
+.listaMensagens {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.mensagem {
+  padding: 18px;
+  background: #fffdf9;
+  border: 1px solid #eaded2;
+  border-radius: 14px;
+  overflow-wrap: anywhere;
+}
+
+.naoLida {
+  border-left: 5px solid #bd855d;
+  background: #fff8ef;
+}
+
+.mensagem h3 {
+  margin: 0 0 4px;
+  font-size: 16px;
+}
+
+.mensagem p {
+  margin: 8px 0;
+  line-height: 1.5;
+  white-space: pre-wrap;
+}

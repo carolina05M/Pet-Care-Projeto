@@ -346,3 +346,20 @@
     gap: 30px;
   }
 }
+.link-detalhes {
+  display: inline-block;
+  margin-bottom: 12px;
+  color: #a77f6d;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.link-detalhes:hover {
+  text-decoration: underline;
+}
+
+/* Textos longos (nome/descrição vindos do banco) não estouram o card */
+.servico-card {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}

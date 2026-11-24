@@ -1,12 +1,67 @@
+import { useState } from "react";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
+import ErroCampo from "../../components/ErroCampo";
+import { enviarMensagem } from "../../services/mensagensService";
+import {
+  formatarTelefone,
+  temErros,
+  validarEmail,
+  validarNomePessoa,
+  validarTelefone,
+  validarTexto,
+} from "../../utils/validacoes";
 import "./Contato.css";
 
+const FORMULARIO_VAZIO = { nome: "", email: "", telefone: "", mensagem: "" };
+
 function Contato() {
-  const handleSubmit = (e) => {
+  const [form, setForm] = useState(FORMULARIO_VAZIO);
+  const [enviando, setEnviando] = useState(false);
+  const [sucesso, setSucesso] = useState(false);
+  const [erro, setErro] = useState("");
+  const [erros, setErros] = useState({});
+
+  function atualizar(campo) {
+    return (e) => setForm((atual) => ({ ...atual, [campo]: e.target.value }));
+  }
+
+  function atualizarTelefone(e) {
+    setForm((atual) => ({ ...atual, telefone: formatarTelefone(e.target.value) }));
+  }
+
+  async function handleSubmit(e) {
     e.preventDefault();
-    alert("Mensagem enviada com sucesso! Entraremos em contacto em breve.");
-  };
+    setErro("");
+    setSucesso(false);
+
+    const novosErros = {
+      nome: validarNomePessoa(form.nome),
+      email: validarEmail(form.email),
+      telefone: validarTelefone(form.telefone),
+      mensagem: validarTexto(form.mensagem, {
+        rotulo: "A mensagem",
+        minimo: 10,
+        maximo: 2000,
+        obrigatorio: true,
+      }),
+    };
+    setErros(novosErros);
+    if (temErros(novosErros)) return;
+
+    setEnviando(true);
+
+    try {
+      await enviarMensagem(form);
+      setForm(FORMULARIO_VAZIO);
+      setErros({});
+      setSucesso(true);
+    } catch (falha) {
+      setErro(falha.message);
+    } finally {
+      setEnviando(false);
+    }
+  }
 
   return (
     <>
@@ -15,16 +70,16 @@ function Contato() {
       <main className="pagina-contato">
         <section className="contato-intro">
           <span className="contato-etiqueta">Fale Conosco</span>
-          <h1>Estamos prontos para atentar o seu pet</h1>
+          <h1>Estamos prontos para atender o seu pet</h1>
           <p>
-            Dúvidas, agendamentos ou informações? Entre em contacto conosco ou envie uma mensagem abaixo.
+            Dúvidas, agendamentos ou informações? Entre em contato conosco ou envie uma mensagem abaixo.
           </p>
         </section>
 
         <section className="contato-conteudo">
-          {/* Informações de Contacto */}
+          {/* Informações de Contato */}
           <div className="contato-info">
-            <h2>Nossos Contactos</h2>
+            <h2>Nossos Contatos</h2>
             
             <div className="info-card">
               <div className="info-icone">📍</div>
@@ -60,9 +115,21 @@ function Contato() {
             </div>
           </div>
 
-          {/* Formulário de Contacto */}
-          <form className="contato-formulario" onSubmit={handleSubmit}>
+          {/* Formulário de Contato */}
+          <form className="contato-formulario" onSubmit={handleSubmit} noValidate>
             <h2>Envie uma Mensagem</h2>
+
+            {sucesso && (
+              <p className="contato-sucesso" role="status">
+                Mensagem enviada com sucesso! Entraremos em contato em breve.
+              </p>
+            )}
+
+            {erro && (
+              <p className="contato-erro" role="alert">
+                {erro}
+              </p>
+            )}
 
             <div className="campo-grupo">
               <label htmlFor="nome">Nome Completo</label>
@@ -70,8 +137,14 @@ function Contato() {
                 type="text"
                 id="nome"
                 placeholder="Seu nome"
-                required
+                value={form.nome}
+                onChange={atualizar("nome")}
+                autoComplete="name"
+                maxLength={80}
+                aria-invalid={Boolean(erros.nome)}
+                aria-describedby="erro-contato-nome"
               />
+              <ErroCampo id="erro-contato-nome" mensagem={erros.nome} />
             </div>
 
             <div className="campo-grupo">
@@ -80,8 +153,14 @@ function Contato() {
                 type="email"
                 id="email"
                 placeholder="seu.email@exemplo.com"
-                required
+                value={form.email}
+                onChange={atualizar("email")}
+                autoComplete="email"
+                maxLength={254}
+                aria-invalid={Boolean(erros.email)}
+                aria-describedby="erro-contato-email"
               />
+              <ErroCampo id="erro-contato-email" mensagem={erros.email} />
             </div>
 
             <div className="campo-grupo">
@@ -90,7 +169,15 @@ function Contato() {
                 type="tel"
                 id="telefone"
                 placeholder="(69) 99999-9999"
+                value={form.telefone}
+                onChange={atualizarTelefone}
+                autoComplete="tel"
+                inputMode="numeric"
+                maxLength={15}
+                aria-invalid={Boolean(erros.telefone)}
+                aria-describedby="erro-contato-telefone"
               />
+              <ErroCampo id="erro-contato-telefone" mensagem={erros.telefone} />
             </div>
 
             <div className="campo-grupo">
@@ -99,12 +186,17 @@ function Contato() {
                 id="mensagem"
                 rows="5"
                 placeholder="Como podemos ajudar você e seu pet?"
-                required
+                value={form.mensagem}
+                onChange={atualizar("mensagem")}
+                maxLength={2000}
+                aria-invalid={Boolean(erros.mensagem)}
+                aria-describedby="erro-contato-mensagem"
               ></textarea>
+              <ErroCampo id="erro-contato-mensagem" mensagem={erros.mensagem} />
             </div>
 
-            <button type="submit" className="btn-enviar">
-              Enviar Mensagem
+            <button type="submit" className="btn-enviar" disabled={enviando}>
+              {enviando ? "Enviando..." : "Enviar Mensagem"}
             </button>
           </form>
         </section>

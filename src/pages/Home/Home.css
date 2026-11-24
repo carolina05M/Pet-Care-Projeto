@@ -1,0 +1,90 @@
+/*
+  Layout da Home: texto centralizado à esquerda e foto no canto direito.
+  Os seletores começam com "section.container" para vencer as regras antigas e fixas
+  de src/App.css (que ainda estilizam ".container" e servem a este mesmo componente).
+*/
+section.container {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto; /* texto ocupa o que sobra; foto tem largura própria */
+  align-items: center;
+  column-gap: clamp(32px, 5vw, 96px);
+  width: 100%;
+  max-width: none;
+  min-height: calc(100vh - 64px);
+  padding: clamp(24px, 4vw, 64px) clamp(24px, 5vw, 96px);
+}
+
+/* Texto + botão, centralizados na área da esquerda */
+section.container .apresentacao {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+  text-align: center;
+}
+
+section.container .apresentacao p {
+  width: 100%;
+  max-width: 640px;
+  font-size: clamp(32px, 3.4vw, 56px);
+  line-height: 1.2;
+  text-align: center; /* antes era "justify", que abria buracos entre as palavras */
+}
+
+section.container .apresentacao a {
+  display: inline-block;
+  padding: 14px 32px;
+  border-radius: 999px;
+  background: #4b2d27;
+  color: #fffaf5;
+  font-size: 18px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+section.container .apresentacao a:hover,
+section.container .apresentacao a:focus-visible {
+  background: #70483b;
+}
+
+/* Foto no canto direito */
+section.container figure {
+  justify-self: end;
+  width: auto;
+}
+
+section.container figure .img-home {
+  display: block;
+  width: clamp(320px, 30vw, 600px);
+  height: auto;
+  aspect-ratio: 600 / 700;
+  object-fit: cover;
+  object-position: center 25%; /* mantém o rosto do cachorro no recorte */
+  border-radius: 50%;
+}
+
+/* Tablet e celular: uma coluna, texto em cima e foto embaixo */
+@media (max-width: 900px) {
+  section.container {
+    grid-template-columns: 1fr;
+    row-gap: 32px;
+    justify-items: center;
+    min-height: auto;
+    padding: 32px 20px 48px;
+  }
+
+  section.container figure {
+    justify-self: center;
+  }
+
+  section.container figure .img-home {
+    width: min(420px, 90vw);
+  }
+}
+
+@media (max-width: 480px) {
+  section.container .apresentacao p {
+    font-size: 28px;
+  }
+}

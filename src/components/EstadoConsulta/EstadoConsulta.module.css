@@ -1,0 +1,32 @@
+.estado {
+  padding: 35px 20px;
+  border: 1px dashed #cbb9aa;
+  border-radius: 12px;
+  color: #82766e;
+  text-align: center;
+}
+
+.erro {
+  border-style: solid;
+  border-color: #e3c2bd;
+  background: #fbf1ef;
+  color: #8a3b30;
+}
+
+.erro p {
+  margin: 0 0 12px;
+}
+
+.erro button {
+  padding: 8px 18px;
+  border: none;
+  border-radius: 8px;
+  background: #a77f6d;
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.erro button:hover {
+  background: #8c6857;
+}

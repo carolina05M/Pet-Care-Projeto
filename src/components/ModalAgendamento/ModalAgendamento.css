@@ -1,0 +1,73 @@
+/* Complementa os estilos do modal definidos em Servicos.css */
+.form-agendamento textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ded2c5;
+  border-radius: 8px;
+  background: #fff;
+  color: #514943;
+  font: inherit;
+  resize: vertical;
+  box-sizing: border-box;
+}
+
+.form-agendamento textarea:focus {
+  outline: 2px solid #c6a995;
+  border-color: #a77f6d;
+}
+
+.modal-erro {
+  margin: 0;
+  padding: 10px 12px;
+  border: 1px solid #e3c2bd;
+  border-radius: 8px;
+  background: #fbf1ef;
+  color: #8a3b30;
+  font-size: 14px;
+}
+
+.modal-aviso {
+  margin-top: 18px;
+  padding: 16px;
+  border-radius: 12px;
+  background: #f6f0e8;
+  color: #514943;
+}
+
+.modal-aviso p {
+  margin: 0 0 12px;
+}
+
+.modal-link {
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+}
+
+.modal-cancelar {
+  border: none;
+  background: transparent;
+  color: #82766e;
+  font: inherit;
+  cursor: pointer;
+}
+
+.modal-cancelar:hover {
+  text-decoration: underline;
+}
+
+.form-agendamento .botao-agendar:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Observações e nomes longos não quebram a caixa do modal */
+.modal-agendamento {
+  overflow-wrap: anywhere;
+}
+
+.form-agendamento input,
+.form-agendamento select,
+.form-agendamento textarea {
+  max-width: 100%;
+}
